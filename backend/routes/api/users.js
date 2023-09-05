@@ -1,5 +1,7 @@
 const express = require('express')
 const router = express.Router();
+const { check } = require('express-validator');
+const { handleValidationErrors } = require('../../utils/validation');
 
 const bcrypt = require('bcryptjs');
 
@@ -28,7 +30,8 @@ const validateSignup = [
 
 // Sign up
 router.post(
-    '/',
+    '',
+    validateSignup,
     async (req, res) => {
       const { email, password, username } = req.body;
       const hashedPassword = bcrypt.hashSync(password);
@@ -47,5 +50,5 @@ router.post(
       });
     }
   );
-
+  
 module.exports = router;

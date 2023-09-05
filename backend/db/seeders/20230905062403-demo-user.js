@@ -13,19 +13,25 @@ module.exports = {
   options.tableName = 'Users';
     await User.bulkCreate([
       {
+        firstName: 'Petty',
+        lastName: 'Queen',
         email: 'demo@user.io',
         username: 'Demo-lition',
-        hashedPassword: bcrypt.hashSync('password')
+        hashedPassword: bcrypt.hashSync('password'),
       },
       {
+        firstName: 'Frankie',
+        lastName:'Mermaid',
         email: 'user1@user.io',
         username: 'FakeUser1',
-        hashedPassword: bcrypt.hashSync('password2')
+        hashedPassword: bcrypt.hashSync('password2'),
       },
       {
+        firstName: 'Broke',
+        lastName: 'Karen',
         email: 'user2@user.io',
         username: 'FakeUser2',
-        hashedPassword: bcrypt.hashSync('password3')
+        hashedPassword: bcrypt.hashSync('password3'),
       }
     ], {});
   },
