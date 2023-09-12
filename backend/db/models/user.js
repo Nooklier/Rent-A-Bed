@@ -5,9 +5,15 @@ const bcrypt = require('bcryptjs');
 
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
+
+    /******************************************** User Can Have Many Spots ********************************************/
     static associate(models) {
-      // define association here
+      User.hasMany(models.Spot, {
+        foreignKey: 'ownerId',
+        onDelete: 'CASCADE'
+      })
     }
+    /******************************************************************************************************************/
   };
 
   User.init(
