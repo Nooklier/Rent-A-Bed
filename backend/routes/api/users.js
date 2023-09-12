@@ -23,12 +23,17 @@ router.post(
         lastName: user.lastName
       };
   
+      const allUser = user.findAll();
+      console.log(allUser)
+
       await setTokenCookie(res, safeUser);
   
       return res.json({
         user: safeUser
       });
     }
-  );
+);
+
+/************************************************************** Sign Up a New User **************************************************/
 
 module.exports = router;

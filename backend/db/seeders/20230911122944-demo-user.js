@@ -12,22 +12,22 @@ module.exports = {
   async up (queryInterface, Sequelize) {
     await User.bulkCreate([
       {
-        email: 'demo@user.io',
-        username: 'Demo-lition',
+        email: 'pettyqueen@aol.com',
+        username: 'PettyQueen',
         hashedPassword: bcrypt.hashSync('password'),
         firstName: 'Petty',
         lastName: 'Queen'
       },
       {
-        email: 'user1@user.io',
-        username: 'FakeUser1',
+        email: 'frankiemermaid@yahoo.com',
+        username: 'FrankieMermaid',
         hashedPassword: bcrypt.hashSync('password2'),
         firstName: 'Frankie',
         lastName: 'Mermaid'
       },
       {
-        email: 'user2@user.io',
-        username: 'FakeUser2',
+        email: 'sassypants@gmail.com',
+        username: 'McSassy',
         hashedPassword: bcrypt.hashSync('password3'),
         firstName: 'Sassy',
         lastName: 'Pants'
@@ -39,7 +39,7 @@ module.exports = {
     options.tableName = 'Users';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      username: { [Op.in]: ['Demo-lition', 'FakeUser1', 'FakeUser2'] }
+      username: { [Op.in]: ['PettyQueen', 'FrakieMermaid', 'McSassy'] }
     }, {});
   }
 };
