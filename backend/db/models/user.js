@@ -10,15 +10,50 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      
+      User.hasMany(
+        models.Booking,
+        {
+          foreignKey: 'userId',
+          onDelete: 'CASCADE'
+        }
+      )
+
+      User.hasMany(
+        models.Spot,
+        {
+          foreignKey: 'ownerId',
+          onDelete: 'CASCADE'
+        }
+      )
+
+      User.hasMany(
+        models.Review,
+        {
+          foreignKey: 'userId',
+          onDelete: 'CASCADE'
+        }
+      )
+
+      
     }
   }
   User.init({
-    firstName: DataTypes.STRING,
-    lastName: DataTypes.STRING,
-    username: DataTypes.STRING,
-    hashedPassword: DataTypes.STRING,
-    email: DataTypes.STRING
+    firstName: {
+      type: DataTypes.STRING
+    },
+    lastName: {
+      type: DataTypes.STRING
+    },
+    username: {
+      type: DataTypes.STRING
+    },
+    hashedPassword: {
+      type: DataTypes.STRING
+    },
+    email: {
+      type: DataTypes.STRING
+    }
   }, {
     sequelize,
     modelName: 'User',
