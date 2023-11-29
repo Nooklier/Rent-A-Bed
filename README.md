@@ -3,7 +3,7 @@
 ## Database Schema Design
 
 ![airbnb-database-schema]
-![](https://res.cloudinary.com/dikyl7t9p/image/upload/v1693441761/Airbnb_3_krt8u7.png)
+![](https://res.cloudinary.com/dikyl7t9p/image/upload/v1701217872/rent-a-bed-updated-schema.png)
 
 
 [airbnb-db-diagram-info]: https://appacademy-open-assets.s3.us-west-1.amazonaws.com/Modular-Curriculum/content/week-12/airbnb-db-diagram-info.txt
