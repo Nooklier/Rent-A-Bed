@@ -1,6 +1,6 @@
 'use strict';
 
-const { literal } = require('sequelize');
+// const { literal } = require('sequelize');
 
 let options = {};
 if (process.env.NODE_ENV === 'production') {
