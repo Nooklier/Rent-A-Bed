@@ -13,6 +13,7 @@ const setTokenCookie = (res, user) => {
       email: user.email,
       username: user.username,
     };
+    
     const token = jwt.sign(
       { data: safeUser },
       secret,
