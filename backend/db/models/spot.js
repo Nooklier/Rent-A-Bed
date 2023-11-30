@@ -9,14 +9,16 @@ module.exports = (sequelize, DataTypes) => {
 
       Spot.hasMany(
         models.Booking,
-        {foreignKey: 'spotId'}
+        {
+          foreignKey: 'spotId',
+          onDelete: 'CASCADE'
+        }
       )
 
       Spot.belongsTo(
         models.User,
         {
-          foreignKey: 'ownerId',
-          onDelete: 'CASCADE'
+          foreignKey: 'ownerId'
         }
       )
 
@@ -32,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
         models.Image,
         {
           foreignKey: 'imageableId',
-          onDelete: 'CASCADE'
+          constraints: false,
         }
       )
       

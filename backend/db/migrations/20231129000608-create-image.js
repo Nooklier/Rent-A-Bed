@@ -20,7 +20,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false
       },
-      imagetableType: {
+      imageableType: {
         type: Sequelize.STRING,
         allowNull: false
       },

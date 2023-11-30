@@ -27,16 +27,21 @@ module.exports = (sequelize, DataTypes) => {
   Image.init({
     url: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        isUrl: true
+      }
     },
     preview: {
       type: DataTypes.BOOLEAN
     },
     imageableId: {
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
+      allowNull: false
     },
-    imagetableType: {
-      type: DataTypes.STRING
+    imageableType: {
+      type: DataTypes.STRING,
+      allowNull: false
     }    
   }, {
     sequelize,
