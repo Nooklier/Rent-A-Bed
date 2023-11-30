@@ -1,4 +1,4 @@
-# AirBnB Clone
+# rent-a-bed
 
 ## Database Schema Design
 
