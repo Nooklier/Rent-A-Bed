@@ -56,9 +56,8 @@ router.get('/current', requireAuth, async (req, res) => {
 
         let count = 0;
         spot.Reviews.forEach((review) => {count += review.stars})
-
         let avgReviews = count / spot.Reviews.length;
-        
+
             spotDetails.push({
                 id: spot.id,
                 ownerId: spot.ownerId,
@@ -76,8 +75,10 @@ router.get('/current', requireAuth, async (req, res) => {
                 avgRating: avgReviews || 0,
                 previewImage: spot.Images[0].url
         })
-    })
 
+    })
+    
+    // console.log('hahahah', spotDetails)
     res.status(200).json({"Spots": spotDetails})
 })
 
