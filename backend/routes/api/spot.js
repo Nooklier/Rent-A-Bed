@@ -51,34 +51,43 @@ router.get('/current', requireAuth, async (req, res) => {
     const spots = await Spot.findAll({where: {ownerId : currentUser.id}, include: [{model : Review}, {model : Image}]})
 
     // FIND AVGRATING & PREVIEWIMAGE
-    const spotDetails = []
-    spots.forEach((spot) => {
+    const spotDetails = [];
+    
+    for (const spot of spots) {
+        
+        // FINE TOTAL NUMBER OF REVIEWS
+        const reviewCount = await Review.count({
+            where: {
+                spotId: spot.id
+            }
+        })
+       
+        // FIND SUM OF STARS
+        const starsTotal = await Review.sum('stars')
 
-        let count = 0;
-        spot.Reviews.forEach((review) => {count += review.stars})
-        let avgReviews = count / spot.Reviews.length;
+        // FIND AVGRATING
+        const avgReviews = starsTotal/reviewCount
 
-            spotDetails.push({
-                id: spot.id,
-                ownerId: spot.ownerId,
-                address: spot.address,
-                city: spot.city,
-                state: spot.state,
-                country: spot.country,
-                lat: spot.lat,
-                lng: spot.lng,
-                name: spot.name,
-                description: spot.description,
-                price: spot.price,
-                createdAt: spot.createdAt,
-                updatedAt: spot.updatedAt,
-                avgRating: avgReviews || 0,
-                previewImage: spot.Images[0].url
+        spotDetails.push({
+            id: spot.id,
+            ownerId: spot.ownerId,
+            address: spot.address,
+            city: spot.city,
+            state: spot.state,
+            country: spot.country,
+            lat: spot.lat,
+            lng: spot.lng,
+            name: spot.name,
+            description: spot.description,
+            price: spot.price,
+            createdAt: spot.createdAt,
+            updatedAt: spot.updatedAt,
+            avgRating: avgReviews || 0,
+            previewImage: spot.Images[0].url
         })
 
-    })
+    }
     
-    // console.log('hahahah', spotDetails)
     res.status(200).json({"Spots": spotDetails})
 })
 
