@@ -58,9 +58,47 @@ router.get('/current', requireAuth, async (req, res) => {
     
 })
 
-/*******************************************************************************************************************************/
+/****************************************** ADD AN IMAGE TO A REVIEW BASE ON REVIEW'S ID ************************************************/
 
+router.post('/:reviewId/images', requireAuth, async (req, res) => {
 
+    const { reviewId } = req.params;
+    const { url } = req.body;
+
+    const review = await Review.findOne({where: {id: reviewId}, include: {model : Image}})
+
+    // REVIEW MUST BELONG TO CURRENT LOG IN USER 
+    if (review.userId !== req.user.id) {
+        return res.status(403).json({
+            "message" : "Authentication is required"
+        })
+    }
+
+    // IF REVIEW ID DOES NOT EXIST
+    if (!review) {
+        return res.status(404).json({
+            "message": "Review couldn't be found"
+        })
+    }
+    
+    // REVIEW CAN NOT HAVE MORE THAN 10 IMAGES
+    if (review.Images.length >= 10) {
+        return res.status(403).json({
+            "message": "Maximum number of images for this resource was reached"
+        })
+    }
+    
+    const newImage = await Image.create({
+        url: url,
+        imageableId: reviewId,
+        imageableType: 'Review'
+    })
+
+    res.status(200).json({
+        id: newImage.id,
+        url: newImage.url
+    })
+})
 
 
 
