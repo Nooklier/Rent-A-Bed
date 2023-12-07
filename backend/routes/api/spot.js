@@ -290,7 +290,7 @@ router.delete('/:spotId', requireAuth, async (req, res) => {
 
     const {spotId} = req.params;
 
-    const spot = await Spot.findByPk(spotId)
+    const spot = await Spot.findOne(spotId)
 
     // IF SPOT DOES NOT EXIST
     if (!spot) {
@@ -313,5 +313,55 @@ router.delete('/:spotId', requireAuth, async (req, res) => {
       })
     
 })
+
+
+/************************************* GET ALL REVIEWS BY SPOT'S ID ******************************************/
+
+router.get('/:spotId/reviews', async (req, res) => {
+
+    const { spotId } = req.params;
+    const currentUser = await User.findByPk(req.user.id)
+    const reviews = await Review.findAll({where: { id: spotId}, include:[{model: User}, {model: Image}]})
+    const spot = await Spot.findByPk(spotId);
+    
+    // IF SPOT DOES NOT EXIST
+    if (!spot) {
+        return res.status(404).json({
+            "message": "Spot couldn't be found"
+        })
+    }
+    
+    const resObj = [];
+
+    for (const review of reviews) {
+        
+            const reviewImg = [];
+        
+            review.Images.forEach((image) => {
+                reviewImg.push({
+                    id: image.id,
+                    url: image.url
+                })
+            })
+
+        resObj.push({
+            id: review.id,
+            userId: review.userId,
+            review: review.review,
+            stars: review.stars,
+            createdAt: review.createdAt,
+            updatedAt: review.updatedAt,
+            User: {
+            id: currentUser.id,
+            firstName: currentUser.firstName,
+                lastName: currentUser.lastName
+            },
+            ReviewImages: reviewImg
+        })
+    }
+    
+    res.status(200).json({"Reviews": resObj})
+})
+
 
 module.exports = router;
