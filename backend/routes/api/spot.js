@@ -199,6 +199,55 @@ router.post('/', requireAuth, validateSpot, async (req, res, next) => {
 
 })
 
+
+/********************************************** EDIT SPOT *****************************************************/
+
+router.put('/:spotId', requireAuth, validateSpot, async (req, res) => {
+    
+    const { spotId } = req.params;
+    const { address, city, state, country, lat, lng, name, description, price} = req.body;
+    
+    let spot = await Spot.findByPk(spotId)
+    
+    if (!spot)  {
+        return res.status(404).json({
+            "message": "Spot couldn't be found"
+        })
+    }
+    
+    if (spot.ownerId !== req.user.id) {
+        return res.status(403).json({
+            "message" : "Authentication is required"
+        })
+    }
+    
+    await spot.update({
+        address: address,
+        city: city,
+        state: state,
+        country: country,
+        lat: lat,
+        lng: lng,
+        name: name,
+        description: description,
+        price: price
+    })
+    
+    let updatedSpot = {
+        id: spot.id,
+        ownerId: spot.ownerId,
+        address: spot.address,
+        city: spot.city,
+        lat: spot.lat,
+        lng: spot.lng,
+        name: spot.name,
+        description: spot.description,
+        price: spot.price
+    }
+    
+    res.status(200).json(updatedSpot)
+})
+
 /******************************** ADD AN IMAGE TO A SPOT BASE ON SPOT'S ID  *********************************/
 
 router.post('/:spotId/images', requireAuth, async (req, res) => {
@@ -228,9 +277,5 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
     })
 
 })
-
-
-
-
 
 module.exports = router;
