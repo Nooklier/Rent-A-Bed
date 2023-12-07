@@ -209,12 +209,14 @@ router.put('/:spotId', requireAuth, validateSpot, async (req, res) => {
     
     let spot = await Spot.findByPk(spotId)
     
+    // IF SPOT DOES NOT EXIST ERROR
     if (!spot)  {
         return res.status(404).json({
             "message": "Spot couldn't be found"
         })
     }
     
+    // IF SPOT BEING EDIT DOES NOT BELONG TO THE CURRENT LOG IN USER
     if (spot.ownerId !== req.user.id) {
         return res.status(403).json({
             "message" : "Authentication is required"
@@ -276,6 +278,36 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
         preview: newImage.preview
     })
 
+})
+
+/******************************************** DELETE A SPOT **************************************************/
+
+router.delete('/:spotId', requireAuth, async (req, res) => {
+
+    const {spotId} = req.params;
+
+    const spot = await Spot.findByPk(spotId)
+
+    // IF SPOT DOES NOT EXIST
+    if (!spot) {
+        return res.status(404).json({
+            "message": "Spot couldn't be found"
+        })
+    }
+
+    // IF SPOT DOES NOT BELONG TO CURRENT USER
+    if (spot.ownerId !== req.user.id) {
+        return res.status(403).json({
+            "message" : "Authentication is required"
+        })
+    }
+
+    await Spot.destroy({where: {id : spotId}})
+
+    res.status(200).json({
+        "message": "Successfully deleted"
+      })
+    
 })
 
 module.exports = router;
