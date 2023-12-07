@@ -44,8 +44,20 @@ const validateSpot = [
         .isFloat({min: 0})
         .withMessage("Price per day must be a positive number"),
         handleValidationErrors
-
 ]        
+
+const validateReview = [
+    check('review')
+        .exists({checkFalsy: true})
+        .withMessage("Review text is required"),
+    check('stars')
+        .exists({checkFalsy: true})
+        .withMessage("Stars must be an integer from 1 to 5"),
+    check('stars')
+        .isFloat({min: 1 , max: 5})
+        .withMessage("Stars must be an integer from 1 to 5"),
+    handleValidationErrors
+]
 
 /************************************************ GET ALL SPOTS *********************************************/
 
@@ -363,5 +375,44 @@ router.get('/:spotId/reviews', async (req, res) => {
     res.status(200).json({"Reviews": resObj})
 })
 
+/***************************** CREATE A REVIEW FOR A SPOT BASE ON SPOT ID ***************************************/
+
+router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res) => {
+
+    const { spotId } = req.params;
+    const { review, stars } = req.body;
+    const currentUser = req.user.id;
+
+    const spot = await Spot.findOne({where: { id: spotId}, include: {model: User}});
+    
+    if (!spot) {
+        return res.status(404).json({
+            "message": "Spot couldn't be found"
+        })
+    }
+
+    const userReview = await Review.findOne({
+        where: {
+            userId : currentUser,
+            spotId: spotId
+        }
+    })
+
+    if (userReview) {
+        return res.status(500).json({
+            "message": "User already has a review for this spot"
+          })
+    }
+
+    const newReview = await Review.create({
+        userId: currentUser,
+        spotId: spotId,
+        review: review,
+        stars: stars
+    })
+
+    res.status(201).json(newReview)
+
+})
 
 module.exports = router;
