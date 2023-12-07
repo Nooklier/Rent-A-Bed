@@ -81,7 +81,7 @@ router.get('', async (req, res) => {
         })
     })
 
-    return res.status(200).json(spotDetails)
+    return res.status(200).json({"Spots":spotDetails})
 })
 
 /************************************** GET ALL SPOTS BY CURRENT USER ***************************************/
@@ -205,7 +205,7 @@ router.post('/', requireAuth, validateSpot, async (req, res, next) => {
 router.put('/:spotId', requireAuth, validateSpot, async (req, res) => {
     
     const { spotId } = req.params;
-    const { address, city, state, country, lat, lng, name, description, price} = req.body;
+    const { address, city, state, country, lat, lng, name, description, price, createdAt, updatedAt} = req.body;
     
     let spot = await Spot.findByPk(spotId)
     
@@ -232,7 +232,9 @@ router.put('/:spotId', requireAuth, validateSpot, async (req, res) => {
         lng: lng,
         name: name,
         description: description,
-        price: price
+        price: price,
+        createdAt: createdAt,
+        updatedAt: updatedAt
     })
     
     let updatedSpot = {
@@ -244,7 +246,9 @@ router.put('/:spotId', requireAuth, validateSpot, async (req, res) => {
         lng: spot.lng,
         name: spot.name,
         description: spot.description,
-        price: spot.price
+        price: spot.price,
+        createdAt: spot.createdAt,
+        updatedAt: spot.updatedAt
     }
     
     res.status(200).json(updatedSpot)
