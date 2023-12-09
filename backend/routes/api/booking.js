@@ -106,8 +106,6 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
             "message": "Past bookings can't be modified"
           })
     }
-    
-    // for (const booking of booking) {
 
         const bookingStartDate = new Date(booking.startDate);
         const bookingEndDate = new Date(booking.endDate)
@@ -138,8 +136,6 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
                 }
               })
         }
-    // }
-
 
     await booking.update({
         startDate: startDate,
@@ -159,6 +155,35 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
     res.status(200).json(updateBooking)
 })
 
+/***************************************************** DELETE A BOOKING ***************************************************************/
+
+router.delete('/:bookingId', requireAuth, async (req, res) => {
+    const user = req.user.id;
+    const {bookingId} = req.params;
+    const booking = await Booking.findOne({where: {id: bookingId}})
+
+    // IF BOOKING FOR USER DOES NOT EXIST
+    if (!booking) {
+        return res.status(404).json({
+            "message": "Booking couldn't be found"
+          })
+    }
+
+    // IF USER TRIED TO DELETE BOOKING FOR PAST DATES
+    const currentDate = new Date()
+
+    if (booking.startDate <= currentDate) {
+        return res.status(403).json({
+            "message": "Bookings that have been started can't be deleted"
+          })
+    }
+
+    await Booking.destroy({where: {id: bookingId}})
+
+    res.status(200).json({
+        "message": "Successfully deleted"
+      })
+})
 
 
 
