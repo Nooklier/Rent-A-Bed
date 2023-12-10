@@ -82,17 +82,18 @@ router.post('/:reviewId/images', requireAuth, async (req, res) => {
 
     const review = await Review.findOne({where: {id: reviewId}, include: {model : Image}})
 
-    // REVIEW MUST BELONG TO CURRENT LOG IN USER 
-    if (review.userId !== req.user.id) {
-        return res.status(403).json({
-            "message" : "Authentication is required"
-        })
-    }
-
+    
     // IF REVIEW ID DOES NOT EXIST
     if (!review) {
         return res.status(404).json({
             "message": "Review couldn't be found"
+        })
+    }
+    
+    // REVIEW MUST BELONG TO CURRENT LOG IN USER 
+    if (review.userId !== req.user.id) {
+        return res.status(403).json({
+            "message" : "Authentication is required"
         })
     }
     
@@ -128,6 +129,10 @@ router.put('/:reviewId', requireAuth, validateReview, async (req, res) => {
         return res.status(404).json({
             "message": "Review couldn't be found"
         })
+    }
+
+    if(currentReview.userid !== req.use.id) {
+        return res.status(403).json({'message' : 'Unauthorized user'})
     }
     
     await currentReview.update({

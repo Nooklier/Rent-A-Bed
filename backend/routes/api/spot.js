@@ -130,11 +130,18 @@ router.get('', validateQuery, async (req, res) => {
 
     // ADD AVGRATING & PREVIEWIMAGE
     const spotDetails = []
-    spots.forEach((spot) => {
+    for (const spot of spots) {
+
+        const image = await Image.findOne({where: {imageableType: 'Spot', preview: true}})
+
+        if (image) {
+            spot.dataValues.previewImage = image.url;
+        }
 
         let count = 0;
         spot.Reviews.forEach((review) => {count += review.stars})
         let avgReviews = count / spot.Reviews.length;
+
         
             spotDetails.push({
                 id: spot.id,
@@ -151,9 +158,9 @@ router.get('', validateQuery, async (req, res) => {
                 createdAt: spot.createdAt,
                 updatedAt: spot.updatedAt,
                 avgRating: avgReviews || 0,
-                previewImage: spot.Images[0].url
+                previewImage: image.url
         })
-    })
+    }
 
     return res.status(200).json({"Spots":spotDetails, page, size})
 })
@@ -172,6 +179,12 @@ router.get('/current', requireAuth, async (req, res) => {
     const spotDetails = [];
     
     for (const spot of spots) {
+
+        const image = await Image.findOne({where: {imageableType: 'Spot', preview: true}})
+
+        if (image) {
+            spot.dataValues.previewImage = image.url;
+        }
         
         // FINE TOTAL NUMBER OF REVIEWS
         const reviewCount = await Review.count({
@@ -201,7 +214,7 @@ router.get('/current', requireAuth, async (req, res) => {
             createdAt: spot.createdAt,
             updatedAt: spot.updatedAt,
             avgRating: avgReviews || 0,
-            previewImage: spot.Images[0].url
+            previewImage: image.url
         })
 
     }
@@ -267,7 +280,19 @@ router.get('/:spotId', async (req, res) => {
 router.post('/', requireAuth, validateSpot, async (req, res, next) => {
 
     const {ownerId, address, city, state, country, lat, lng, name, description, price} = req.body;
-    const newSpot = await Spot.create(req.body)
+
+    const newSpot = await Spot.create({
+        ownerId: req.user.id,
+        address: address,
+        city: city,
+        state: state,
+        country: country,
+        lat: lat,
+        lng: lng,
+        name: name,
+        description: description,
+        price: price
+    })
 
     res.status(201).json(newSpot)
 
