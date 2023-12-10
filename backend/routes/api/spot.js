@@ -6,6 +6,7 @@ const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { DATEONLY } = require('sequelize');
 const booking = require('../../db/models/booking');
+const {Op} = require('sequelize');
 
 /************************************************ VALIDATIONS ***********************************************/
 
@@ -61,22 +62,71 @@ const validateReview = [
     handleValidationErrors
 ]
 
-// const validateBooking = [
-//     check('startDate')
-//         .exists({checkFalsy: true})
-//         .withMessage("startDate is required"),
-//     check('endDate')
-//         .exists({checkFalsy: true})
-//         .withMessage("endDate is required"),
-//     handleValidationErrors    
-// ]
-
+const validateQuery = [
+check('page')
+    .if(check('page').exists())
+    .isInt({min: 1, max: 10})
+    .withMessage("Page must be greater than or equal to 1"),
+check('size')
+    .if(check('size').exists())
+    .isInt({min: 1, max: 20})
+    .withMessage("Size must be greater than or equal to 1"),
+check('maxLat')
+    .if(check('maxLat').exists())
+    .isFloat({min: -90, max: 90})
+    .withMessage("Maximum latitude is invalid"),
+check('minLat')
+    .if(check('minLat').exists())
+    .isFloat({min: -90, max: 90})
+    .withMessage("Minimum latitude is invalid"),
+check('minLng')
+    .if(check('minLng').exists())
+    .isFloat({min: -180, max: 180})
+    .withMessage( "Maximum longitude is invalid"),
+check('maxLng')
+    .if(check('maxLng').exists())
+    .isFloat({min: -180, max: 180})
+    .withMessage("Minimum longitude is invalid"),
+check('minPrice')
+    .if(check('minPrice').exists())
+    .isFloat({min: 0})
+    .withMessage("Minimum price must be greater than or equal to 0"),
+check('maxPrice')
+    .if(check('maxPrice').exists())
+    .isFloat({min: 0})
+    .withMessage("Maximum price must be greater than or equal to 0"),
+handleValidationErrors
+]
 /************************************************ GET ALL SPOTS *********************************************/
 
-router.get('', async (req, res) => {
+router.get('', validateQuery, async (req, res) => {
 
+    // EXTRACT QUERY PARAMETERS
+    const {page = 1, size = 20, minLat, maxLat, minLng, maxLng, minPrice, maxPrice} = req.query;
+
+    const filters = {
+        lat: {
+            [Op.gte]: minLat || -90,                    // LATITUDE MUST BE GREATER THAN OR EQUAL TO -90 BUT...
+            [Op.lte]: maxLat || 90                      // LATITUDE MUST BE LESS THAN OR EQUAL TO 90
+        },
+        lng: {
+            [Op.gte]: minLng || -180,                   // LONGITUDE MUST BE GREATER THAN OR EQUAL TO -180 BUT...
+            [Op.lte]: maxLng || 180                     // LONGITUDE MUST BE LESS THAN OR EQUAL TO 180
+        },
+        price: {
+            [Op.gte]: minPrice || 0,                    
+            [Op.gte]: maxPrice || 0
+        }
+    }
     // FIND ALL SPOTS & INCLUDE REVIEW MODEL FOR AVGRATING & IMAGE MODEL FOR PREVIEWIMAGE
-    const spots = await Spot.findAll({include: [{model: Review}, {model: Image}]}) 
+    const spots = await Spot.findAll({
+        where: filters,
+        offset: (page - 1) * size,
+        limit: size,
+        include: [
+            {model: Review}, 
+            {model: Image}
+        ]}) 
 
     // ADD AVGRATING & PREVIEWIMAGE
     const spotDetails = []
@@ -105,7 +155,7 @@ router.get('', async (req, res) => {
         })
     })
 
-    return res.status(200).json({"Spots":spotDetails})
+    return res.status(200).json({"Spots":spotDetails, page, size})
 })
 
 /************************************** GET ALL SPOTS BY CURRENT USER ***************************************/
