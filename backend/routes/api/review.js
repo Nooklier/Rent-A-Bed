@@ -131,7 +131,7 @@ router.put('/:reviewId', requireAuth, validateReview, async (req, res) => {
         })
     }
 
-    if(currentReview.userid !== req.use.id) {
+    if(currentReview.userId !== req.user.id) {
         return res.status(403).json({'message' : 'Unauthorized user'})
     }
     

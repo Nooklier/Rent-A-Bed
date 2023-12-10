@@ -526,8 +526,8 @@ router.get('/:spotId/bookings', requireAuth, async (req, res) => {
         if (spot.ownerId !== currentUser) {
             return res.status(200).json({"Bookings": [{
                 spotId: booking.spotId,
-                startDate: booking.startDate,
-                endDate: booking.endDate
+                startDate: booking.startDate.slice(0,10),
+                endDate: booking.endDate.slice(0,10)
             }]})    
         }
 
@@ -542,8 +542,8 @@ router.get('/:spotId/bookings', requireAuth, async (req, res) => {
             id: booking.id,
             spotId: booking.spotId,
             userId: booking.userId,
-            startDate: booking.startDate,
-            endDate: booking.endDate,
+            startDate: booking.startDate.slice(0,10),
+            endDate: booking.endDate.slice(0,10),
             createdAt: booking.createdAt,
             updatedAt:booking.updatedAt
         })
@@ -565,15 +565,16 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
     const spot = await Spot.findOne({where: {id : spotId}})
     const allBookings = await Booking.findAll({where: {spotId: spotId}})
 
+    // IF SPOT BELONGS TO CURRENT USER
+    if (spot.ownerId === req.user.id) {
+        return res.status(403).json({"message" : "Can not book your own spot"})
+    }
+    
     // IF SPOT DOES NOT EXIST
     if (!spot) {
         return res.status(404).json({ "message": "Spot couldn't be found"})
     }
 
-    // IF SPOT BELONGS TO CURRENT USER
-    if (spot.ownerId === req.user.id) {
-        return res.status(403).json({"message" : "Can not book your own spot"})
-    }
 
     let currentDate = new Date()
     let newStartDate = new Date(startDate)

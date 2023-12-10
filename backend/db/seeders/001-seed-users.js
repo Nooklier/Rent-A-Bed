@@ -18,7 +18,7 @@ module.exports = {
       username: 'swimminInBtchs',
       hashedPassword: bcrypt.hashSync('frankie_password'),
       email: 'frankie.mermaid@gmail.com'
-      }
+      },
     ], {});
   },
 
