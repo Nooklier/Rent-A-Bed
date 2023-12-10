@@ -17,6 +17,12 @@ module.exports = {
           preview: true,
           imageableId: 1,
           imageableType: 'Spot'
+        },
+        {
+          url: "https://res.cloudinary.com/dikyl7t9p/image/upload/v1701947123/shame.png",
+          preview: true,
+          imageableId: 1,
+          imageableType: 'Review'
         }
       ])
     } catch(e) {console.log(e)}
