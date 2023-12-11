@@ -256,11 +256,11 @@ router.get('/:spotId', async (req, res) => {
         city: spot.city,
         state: spot.state,
         country: spot.country,
-        lat: spot.lat,
-        lng: spot.lng,
+        lat: parseFloat(spot.lat),
+        lng: parseFloat(spot.lng),
         name: spot.name,
         description: spot.description,
-        price: spot.price,
+        price: parseFloat(spot.price),
         createdAt: spot.createdAt,
         updatedAt: spot.updatedAt,
         numReviews: spot.Reviews.length,
@@ -288,11 +288,11 @@ router.post('/', requireAuth, validateSpot, async (req, res, next) => {
         city: city,
         state: state,
         country: country,
-        lat: lat,
-        lng: lng,
+        lat: parseFloat(lat),
+        lng: parseFloat(lng),
         name: name,
         description: description,
-        price: price
+        price: parseFloat(price)
     })
 
     res.status(201).json(newSpot)
