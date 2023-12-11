@@ -61,7 +61,7 @@ router.get('/current', requireAuth, async (req, res) => {
 router.put('/:bookingId', requireAuth, async (req, res) => {
     const {bookingId} = req.params;
     const {startDate, endDate} = req.body;
-    const booking = await Booking.findOne({where: {id: bookingId}})
+    const booking = await Booking.findByPk(bookingId)
     
     // IF BOOKING DOES NOT EXIST
     if (!booking) {
@@ -146,8 +146,8 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
         id: booking.id,
         spotId: booking.spotId,
         userId: booking.userId,
-        startDate: booking.startDate.slice(0,10),
-        endDate: booking.endDate.slice(0,10),
+        startDate: booking.startDate.toISOString().slice(0,10),
+        endDate: booking.endDate.toISOString().slice(0,10),
         createdAt: booking.createdAt,
         updatedAt: booking.updatedAt
     }

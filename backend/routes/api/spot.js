@@ -662,6 +662,7 @@ router.post('/:spotId/bookings', requireAuth, validateBooking, async (req, res) 
     })
     
     let newBooking = {
+        id: booking.id,
         spotId: booking.spotId,
         userId: booking.userId,
         startDate: new Date(booking.startDate).toISOString().slice(0,10),
