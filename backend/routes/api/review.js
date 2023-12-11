@@ -58,10 +58,10 @@ router.get('/current', requireAuth, async (req, res) => {
                 address: review.Spot.address,
                 city: review.Spot.city,
                 country: review.Spot.country,
-                lat: review.Spot.lat,
-                lng: review.Spot.lng,
+                lat: parseFloat(review.Spot.lat),
+                lng: parseFloat(review.Spot.lng),
                 name: review.Spot.name,
-                price: review.Spot.price,
+                price: parseFloat(review.Spot.price),
                 previewImage: review.Images[0].url
             },
             ReviewImages: reviewImg

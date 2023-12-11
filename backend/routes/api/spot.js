@@ -333,7 +333,7 @@ router.put('/:spotId', requireAuth, validateSpot, async (req, res) => {
     
     // IF SPOT BEING EDIT DOES NOT BELONG TO THE CURRENT LOG IN USER
     if (spot.ownerId !== req.user.id) {
-        return res.status(403).json({
+        return res.status(401).json({
             "message" : "Authentication is required"
         })
     }
@@ -422,7 +422,7 @@ router.delete('/:spotId', requireAuth, async (req, res) => {
 
     // IF SPOT DOES NOT BELONG TO CURRENT USER
     if (spot.ownerId !== req.user.id) {
-        return res.status(403).json({
+        return res.status(401).json({
             "message" : "Authentication is required"
         })
     }
