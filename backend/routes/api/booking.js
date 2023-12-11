@@ -5,6 +5,16 @@ const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
+const validateBooking = [
+    check('startDate')
+        .exists({checkFalsy: true})
+        .withMessage("startDate is required"),
+    check('endDate')
+        .exists({checkFalsy: true})
+        .withMessage("endtDate is required"),
+    handleValidationErrors
+]
+
 /***************************************************** GET ALL OF THE CURRENT USER'S BOOKINGS ***************************************************************/
 
 router.get('/current', requireAuth, async (req, res) => {
@@ -58,7 +68,7 @@ router.get('/current', requireAuth, async (req, res) => {
 
 /***************************************************** EDIT A BOOKING ***************************************************************/
 
-router.put('/:bookingId', requireAuth, async (req, res) => {
+router.put('/:bookingId', requireAuth, validateBooking, async (req, res) => {
     const {bookingId} = req.params;
     const {startDate, endDate} = req.body;
     const booking = await Booking.findByPk(bookingId)
