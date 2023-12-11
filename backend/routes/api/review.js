@@ -92,7 +92,7 @@ router.post('/:reviewId/images', requireAuth, async (req, res) => {
     
     // REVIEW MUST BELONG TO CURRENT LOG IN USER 
     if (review.userId !== req.user.id) {
-        return res.status(403).json({
+        return res.status(401).json({
             "message" : "Authentication is required"
         })
     }
@@ -132,7 +132,9 @@ router.put('/:reviewId', requireAuth, validateReview, async (req, res) => {
     }
 
     if(currentReview.userId !== req.user.id) {
-        return res.status(403).json({'message' : 'Unauthorized user'})
+        return res.status(401).json({
+            "message": "Authentication required"
+          })
     }
     
     await currentReview.update({
@@ -170,8 +172,8 @@ router.delete('/:reviewId', requireAuth, async (req, res) => {
     }
 
     if (review.userId !== req.user.id) {
-        return res.status(403).json({
-            "message" : "Authentication is required"
+        return res.status(401).json({
+            "message" : "Authentication required"
         })
     }
 

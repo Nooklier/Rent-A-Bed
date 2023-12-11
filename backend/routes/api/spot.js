@@ -344,7 +344,7 @@ router.put('/:spotId', requireAuth, validateSpot, async (req, res) => {
     // IF SPOT BEING EDIT DOES NOT BELONG TO THE CURRENT LOG IN USER
     if (spot.ownerId !== req.user.id) {
         return res.status(401).json({
-            "message" : "Authentication is required"
+            "message" : "Authentication required"
         })
     }
     

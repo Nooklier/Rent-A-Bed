@@ -71,7 +71,7 @@ router.get('/current', requireAuth, async (req, res) => {
 router.put('/:bookingId', requireAuth, validateBooking, async (req, res) => {
     const {bookingId} = req.params;
     const {startDate, endDate} = req.body;
-    const booking = await Booking.findByPk(bookingId)
+    const booking = await Booking.findByPk(bookingId, {where: {userid : req.user.id}})
     
     // IF BOOKING DOES NOT EXIST
     if (!booking) {
@@ -86,32 +86,34 @@ router.put('/:bookingId', requireAuth, validateBooking, async (req, res) => {
 
     // IF USER DOES NOT LOG IN
     if (booking.userId !== req.user.id) {
-        return res.status(403).json({"message" : "Unauthorized user"})
+        return res.status(401).json({
+            "message": "Authentication required"
+          })
     }
     
-
+    
     // IF START DATE IS IN THE PAST
     if (newStartDate < currentDate) {
         return res.status(400).json({
             "message": "Bad Request", 
             "errors": {
-              "startDate": "startDate cannot be in the past",
+                "startDate": "startDate cannot be in the past",
             }
-          })
+        })
     }
-
+    
     // IF END DATE IS ON OR BEFORE STARTDATE
     if(startDate >= endDate) {
         return res.status(400).json({
             "message": "Bad Request",
             "errors": {
-              "endDate": "endDate cannot be on or before startDate"
+                "endDate": "endDate cannot be on or before startDate"
             }
-          })
+        })
     }
     
     // CAN'T EDIT A BOOKING THAT HAS ALREADY PAST THE CURRENT DATE
-    if (currentDate >= newEndDate) {
+    if (new Date(booking.endDate) <= currentDate) {
         return res.status(403).json({
             "message": "Past bookings can't be modified"
           })
@@ -170,12 +172,7 @@ router.put('/:bookingId', requireAuth, validateBooking, async (req, res) => {
 router.delete('/:bookingId', requireAuth, async (req, res) => {
     const user = req.user.id;
     const {bookingId} = req.params;
-    const booking = await Booking.findOne({where: {id: bookingId}})
-
-    // IF UNAUTHORIZED BOOKING
-    if (booking.userId !== user) {
-        res.status(403).json({"message": "Log in required"})
-    }
+    const booking = await Booking.findByPk(bookingId, {where: {userId : user}})
 
     // IF BOOKING FOR USER DOES NOT EXIST
     if (!booking) {
@@ -184,10 +181,18 @@ router.delete('/:bookingId', requireAuth, async (req, res) => {
           })
     }
 
+    // IF UNAUTHORIZED BOOKING
+    if (booking.userId !== user) {
+        res.status(401).json({
+            "message": "Authentication required"
+          })
+    }
+
+
     // IF USER TRIED TO DELETE BOOKING FOR PAST DATES
     const currentDate = new Date()
 
-    if (booking.startDate <= currentDate) {
+    if (new Date(booking.startDate) <= currentDate) {
         return res.status(403).json({
             "message": "Bookings that have been started can't be deleted"
           })

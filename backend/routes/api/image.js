@@ -29,7 +29,9 @@ router.delete('/spot-images/:imageId', requireAuth, async (req, res) => {
 
     // UNAUTHORIZED USER
     if (image.Spot.ownerId !== user) {
-        return res.status(403).json({"message" : "Spot must belong to the current user"})
+        return res.status(401).json({
+            "message": "Authentication required"
+          })
     }
 
     await Image.destroy({
@@ -61,7 +63,9 @@ router.delete('/review-images/:imageId', requireAuth, async (req, res) => {
 
     // UNAUTHORIZED USER
     if (image.Review.userId !== user) {
-        return res.status(403).json({"message" : "Review must belong to the current user"})
+        return res.status(401).json({
+            "message": "Authentication required"
+          })
     }
 
 
