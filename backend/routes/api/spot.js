@@ -280,20 +280,33 @@ router.get('/:spotId', async (req, res) => {
 
 router.post('/', requireAuth, validateSpot, async (req, res, next) => {
 
-    const {ownerId, address, city, state, country, lat, lng, name, description, price} = req.body;
+    const {address, city, state, country, lat, lng, name, description, price} = req.body;
 
-    const newSpot = await Spot.create({
+    const spot = await Spot.create({
         ownerId: req.user.id,
         address: address,
         city: city,
         state: state,
         country: country,
-        lat: parseFloat(lat),
-        lng: parseFloat(lng),
+        lat: lat,
+        lng: lng,
         name: name,
         description: description,
-        price: parseFloat(price)
+        price: price
     })
+
+    const newSpot = {
+        ownerId: req.user.id,
+        address: spot.address,
+        city: spot.city,
+        state: spot.state,
+        country: spot.country,
+        lat: parseFloat(lat),
+        lng: parseFloat(lng),
+        name: spot.name,
+        description: spot.description,
+        price: parseFloat(price)
+    }
 
     res.status(201).json(newSpot)
 
@@ -367,6 +380,12 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
         res.status(404).json({
             "message": "Spot couldn't be found"
         })
+    }
+
+    if (spot.ownerId !== req.user.id) {
+        res.status(401).json({
+            "message": "Authentication required"
+          })
     }
 
     const newImage = await Image.create({
