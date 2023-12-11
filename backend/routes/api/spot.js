@@ -97,6 +97,16 @@ check('maxPrice')
     .withMessage("Maximum price must be greater than or equal to 0"),
 handleValidationErrors
 ]
+
+const validateBooking = [
+    check('startDate')
+        .exists({checkFalsy: true})
+        .withMessage("startDate is required"),
+    check('endDate')
+        .exists({checkFalsy: true})
+        .withMessage("endtDate is required"),
+    handleValidationErrors
+]
 /************************************************ GET ALL SPOTS *********************************************/
 
 router.get('', validateQuery, async (req, res) => {
@@ -579,7 +589,7 @@ router.get('/:spotId/bookings', requireAuth, async (req, res) => {
 
 /***************************** CREATE A BOOKING FROM A SPOT BASE ON SPOT ID ******************************************/
 
-router.post('/:spotId/bookings', requireAuth, async (req, res) => {
+router.post('/:spotId/bookings', requireAuth, validateBooking, async (req, res) => {
 
     const {spotId} = req.params;
     const {startDate, endDate} = req.body;
@@ -587,16 +597,15 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
     const spot = await Spot.findOne({where: {id : spotId}})
     const allBookings = await Booking.findAll({where: {spotId: spotId}})
 
-    // IF SPOT BELONGS TO CURRENT USER
-    if (spot.ownerId === req.user.id) {
-        return res.status(403).json({"message" : "Can not book your own spot"})
-    }
-    
     // IF SPOT DOES NOT EXIST
     if (!spot) {
         return res.status(404).json({ "message": "Spot couldn't be found"})
     }
 
+    // IF SPOT BELONGS TO CURRENT USER
+    if (spot.ownerId === req.user.id) {
+        return res.status(403).json({"message" : "Can not book your own spot"})
+    }
 
     let currentDate = new Date()
     let newStartDate = new Date(startDate)
