@@ -130,6 +130,7 @@ router.get('', validateQuery, async (req, res) => {
 
     // ADD AVGRATING & PREVIEWIMAGE
     const spotDetails = []
+
     for (const spot of spots) {
 
         const image = await Image.findOne({where: {imageableType: 'Spot', preview: true}})
