@@ -24,9 +24,9 @@ const validateReview = [
 
 router.get('/current', requireAuth, async (req, res) => {
 
-    const currentUser = await User.findByPk(req.user.id)
-    const reviews = await Review.findAll({where: {userId : currentUser.id}, include: [{model : User}, {model : Image}, {model: Spot}]})
-
+    const currentUser = req.user.id;
+    const reviews = await Review.findAll({where: {userId : currentUser}, include: [{model : User}, {model : Image}, {model: Spot}]})
+    
     const resObj = [];
     
     for (const review of reviews) {
