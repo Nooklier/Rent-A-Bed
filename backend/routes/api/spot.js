@@ -292,7 +292,7 @@ router.post('/', requireAuth, validateSpot, async (req, res, next) => {
         lng: lng,
         name: name,
         description: description,
-        price: price
+        price: price,
     })
 
     const newSpot = {
@@ -305,7 +305,9 @@ router.post('/', requireAuth, validateSpot, async (req, res, next) => {
         lng: parseFloat(lng),
         name: spot.name,
         description: spot.description,
-        price: parseFloat(price)
+        price: parseFloat(price),
+        createdAt: spot.createdAt,
+        updatedAt:spot.updatedAt
     }
 
     res.status(201).json(newSpot)
