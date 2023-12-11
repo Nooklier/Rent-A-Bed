@@ -442,7 +442,7 @@ router.get('/:spotId/reviews', async (req, res) => {
 
     const { spotId } = req.params;
     const currentUser = await User.findByPk(req.user.id)
-    const reviews = await Review.findAll({where: { id: spotId}, include:[{model: User}, {model: Image}]})
+    const reviews = await Review.findAll({where: { spotId: spotId}, include:[{model: User}, {model: Image}]})
     const spot = await Spot.findByPk(spotId);
     
     // IF SPOT DOES NOT EXIST
@@ -452,18 +452,18 @@ router.get('/:spotId/reviews', async (req, res) => {
         })
     }
     
-    const resObj = [];
+    let resObj = [];
 
     for (const review of reviews) {
         
-            const reviewImg = [];
-        
-            review.Images.forEach((image) => {
-                reviewImg.push({
-                    id: image.id,
-                    url: image.url
-                })
+        const reviewImg = [];
+    
+        review.Images.forEach((image) => {
+            reviewImg.push({
+                id: image.id,
+                url: image.url
             })
+        })
 
         resObj.push({
             id: review.id,
