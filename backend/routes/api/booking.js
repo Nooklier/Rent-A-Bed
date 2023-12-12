@@ -174,8 +174,6 @@ router.delete('/:bookingId', requireAuth, async (req, res) => {
     const {bookingId} = req.params;
     const booking = await Booking.findByPk(bookingId, {where: {userId : user}})
 
-    console.log(booking)
-
     // IF BOOKING FOR USER DOES NOT EXIST
     if (!booking) {
         return res.status(404).json({
@@ -185,7 +183,7 @@ router.delete('/:bookingId', requireAuth, async (req, res) => {
 
     // IF UNAUTHORIZED BOOKING
     if (booking.userId !== user) {
-        res.status(401).json({
+        return res.status(401).json({
             "message": "Authentication required"
           })
     }
