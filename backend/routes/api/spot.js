@@ -306,6 +306,7 @@ router.post('/', requireAuth, validateSpot, async (req, res, next) => {
     })
 
     const newSpot = {
+        id: spot.id,
         ownerId: req.user.id,
         address: spot.address,
         city: spot.city,
