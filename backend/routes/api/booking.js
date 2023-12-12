@@ -43,10 +43,10 @@ router.get('/current', requireAuth, async (req, res) => {
             city: booking.Spot.city,
             state: booking.Spot.state,
             country: booking.Spot.country,
-            lat: booking.Spot.lat,
-            lng: booking.Spot.lng,
+            lat: parseFloat(booking.Spot.lat),
+            lng: parseFloat(booking.Spot.lng),
             name: booking.Spot.name,
-            price: booking.Spot.price,
+            price: parseFloat(booking.Spot.price),
             previewImage: image.url
         },)
 
@@ -173,6 +173,8 @@ router.delete('/:bookingId', requireAuth, async (req, res) => {
     const user = req.user.id;
     const {bookingId} = req.params;
     const booking = await Booking.findByPk(bookingId, {where: {userId : user}})
+
+    console.log(booking)
 
     // IF BOOKING FOR USER DOES NOT EXIST
     if (!booking) {
