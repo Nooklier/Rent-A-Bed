@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import configureStore from './store/store.js';
 import { restoreCSRF, csrfFetch } from './store/csrf';
 import * as sessionActions from './store/session';
+import ProfileButton from './components/Navigation/ProfileButton.jsx';
 
 // Create a variable to access your store and expose it on the window
 const store = configureStore();
