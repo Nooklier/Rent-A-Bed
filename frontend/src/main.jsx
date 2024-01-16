@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import './index.css';
 import { Provider } from 'react-redux';
-import configureStore from './store';
+import configureStore from './store/store.js';
 
 // Create a variable to access your store and expose it on the window
 const store = configureStore();
