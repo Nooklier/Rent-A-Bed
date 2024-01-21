@@ -3,6 +3,8 @@ import { useDispatch } from 'react-redux';
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import Navigation from './components/Navigation/Navigation';
 import * as sessionActions from './store/session';
+import { fetchSpots } from './store/Spots/spotsThunk';
+
 
 function Layout() {
   const dispatch = useDispatch();
@@ -14,10 +16,15 @@ function Layout() {
     });
   }, [dispatch]);
 
+  const handleClick = () => {
+    dispatch(fetchSpots());
+  }  
+
   return (
     <>
       <Navigation isLoaded={isLoaded} />
       {isLoaded && <Outlet />}
+      <button onClick={handleClick}>Test spots</button>
     </>
   );
 }
