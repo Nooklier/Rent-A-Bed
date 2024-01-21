@@ -1,7 +1,8 @@
-import { GET_SPOTS } from "./spotsTypes";
+import { GET_SPOT, GET_SPOTS } from "./spotsTypes";
 
 const initialState = {
-    spots: []
+    spots: [],
+    currentSpot: []
 }
 
 const spotsReducer = (state = initialState, action) => {
@@ -13,6 +14,12 @@ const spotsReducer = (state = initialState, action) => {
             spots:action.payload
            }
         
+        case GET_SPOT:
+            return {
+                ...state,
+                currentSpot: action.payload
+            }
+
         default: 
             return state
     }

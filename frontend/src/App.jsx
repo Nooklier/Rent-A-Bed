@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import Navigation from './components/Navigation/Navigation';
 import * as sessionActions from './store/session';
-import { fetchSpots } from './store/Spots/spotsThunk';
+import { fetchSpot } from './store/Spots/spotsThunk';
 
 
 function Layout() {
@@ -17,7 +17,8 @@ function Layout() {
   }, [dispatch]);
 
   const handleClick = () => {
-    dispatch(fetchSpots());
+    const spotId = '1'
+    dispatch(fetchSpot(spotId));
   }  
 
   return (
