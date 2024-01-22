@@ -3,7 +3,8 @@ import { useDispatch } from 'react-redux';
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import Navigation from './components/Navigation/Navigation';
 import * as sessionActions from './store/session';
-import { fetchSpot } from './store/Spots/spotsThunk';
+// import { fetchUpdateSpot } from './store/Spots/spotsThunk';
+import SpotPanels from './components/HomepagePanels/spotPanels';
 
 
 function Layout() {
@@ -16,16 +17,20 @@ function Layout() {
     });
   }, [dispatch]);
 
-  const handleClick = () => {
-    const spotId = '1'
-    dispatch(fetchSpot(spotId));
-  }  
+  // const handleClick = () => {
+  //   const spotId = '1'
+  //   const updatedSpotData = {
+  //     price: 150
+  //   }
+  //   dispatch(fetchUpdateSpot(spotId, updatedSpotData));
+  // }  
 
   return (
     <>
       <Navigation isLoaded={isLoaded} />
       {isLoaded && <Outlet />}
-      <button onClick={handleClick}>Test spots</button>
+      {/* <button onClick={handleClick}>Test spots</button> */}
+      <SpotPanels />
     </>
   );
 }
@@ -36,7 +41,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <h1>Welcome!</h1>
+        element: <h1></h1>
       }
     ]
   }

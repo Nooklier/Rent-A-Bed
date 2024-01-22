@@ -1,8 +1,8 @@
-import { GET_SPOT, GET_SPOTS } from "./spotsTypes";
+import { GET_SPOT, GET_SPOTS, UPDATE_SPOT } from "./spotsTypes";
 
 const initialState = {
     spots: [],
-    currentSpot: []
+    currentSpot: {}
 }
 
 const spotsReducer = (state = initialState, action) => {
@@ -18,6 +18,13 @@ const spotsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 currentSpot: action.payload
+            }
+
+        case UPDATE_SPOT:
+            return {
+                ...state,
+                currentSpot: action.payload,
+                spots: state.spots.map(spot => spot.id === action.payload.id)
             }
 
         default: 

@@ -1,2 +1,4 @@
 export const GET_SPOTS = 'spots/getSpots'
 export const GET_SPOT = 'spots/getSpot'
+export const UPDATE_SPOT = 'spots/updateSpot'
+export const DELETE_SPOT = 'spots/deleteSpot'

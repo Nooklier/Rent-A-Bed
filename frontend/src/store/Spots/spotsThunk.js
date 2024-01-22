@@ -1,5 +1,5 @@
-import { getSpots } from "./spotsActions"
-import { getSpot } from "./spotsActions"
+import { csrfFetch } from "../csrf"
+import { getSpots, updateSpot, getSpot } from "./spotsActions"
 
 export const fetchSpots = () => async (dispatch) => {
     try {
@@ -34,3 +34,25 @@ export const fetchSpot = (spotId) => async (dispatch) => {
         return error
     }
 }
+
+export const fetchUpdateSpot = (spotId, updatedSpotData) => async (dispatch) => {
+    try {
+      const response = await csrfFetch(`/api/spots/${spotId}`, {
+        method: 'PUT', 
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedSpotData),
+      });
+
+      if (response.ok) {
+        const updatedSpot = await response.json();
+        dispatch(updateSpot(updatedSpot)); 
+      } else {
+        throw new Error(`Failed to update spot with id ${spotId}`);
+      }
+    } catch (error) {
+      return error
+    }
+  };
+  
