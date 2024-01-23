@@ -1,5 +1,5 @@
 import { csrfFetch } from "../csrf"
-import { getSpots, updateSpot, getSpot } from "./spotsActions"
+import { getSpots, updateSpot, getSpot, deleteSpot } from "./spotsActions"
 
 export const fetchSpots = () => async (dispatch) => {
     try {
@@ -54,5 +54,43 @@ export const fetchUpdateSpot = (spotId, updatedSpotData) => async (dispatch) => 
     } catch (error) {
       return error
     }
-  };
-  
+};
+
+export const removeSpot = (spotId) => async (dispatch) => {
+  try {
+    const response = await csrfFetch(`/api/spots/${spotId}`, {
+      method: 'DELETE'
+    })
+
+    if (response.ok) {
+      const spot = await response.json()
+      dispatch(deleteSpot(spot))
+    } else {
+      throw new Error (`Can not find spot with id ${spotId}`)
+    }
+  }
+  catch (error) {
+    return error
+  }
+}
+
+export const addSpot = (data) => async (dispatch) => {
+  try {
+    const response = await csrfFetch('/api/spots', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    });
+
+    if(response.ok) {
+      const newSpot = await response.json()
+      dispatch(addSpot(newSpot))
+    } else {
+      throw new Error('Can not create spot')
+    }
+  } catch (error) {
+    return error
+  }
+}
