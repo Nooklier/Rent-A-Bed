@@ -9,15 +9,18 @@ function Navigation({ isLoaded }) {
 
   return (
     <ul className='nav-container'>
-      <h1>
-        <NavLink to="/">Runeterra</NavLink>
-      </h1>
+      <nav>
+        <NavLink to="/">
+          <img className='icon' src='https://res.cloudinary.com/dikyl7t9p/image/upload/v1706115298/kisspng-league-of-legends-computer-icons-riven-riot-games-legends-5aeb2a5fc077c7.5067134315253612477884_ipmu3w.jpg'/>
+        </NavLink>
+      </nav>
       <div>
-      {isLoaded && (
-        <li>
-          <ProfileButton user={sessionUser} />
-        </li>
-      )}
+        <NavLink to='/'>Create a New Spot</NavLink>
+        <div>
+        {isLoaded && (
+            <ProfileButton user={sessionUser} />
+        )}
+        </div>
       </div>
     </ul>
   );

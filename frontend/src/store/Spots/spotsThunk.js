@@ -3,7 +3,7 @@ import { getSpots, updateSpot, getSpot, deleteSpot } from "./spotsActions"
 
 export const fetchSpots = () => async (dispatch) => {
     try {
-        const response = await fetch ('api/spots')
+        const response = await csrfFetch ('api/spots')
         
         if(response.ok) {
             const spots = await response.json()
@@ -20,7 +20,7 @@ export const fetchSpots = () => async (dispatch) => {
 
 export const fetchSpot = (spotId) => async (dispatch) => {
     try {
-        const response = await fetch (`api/spots/${spotId}`)
+        const response = await fetch (`/api/spots/${spotId}`)
 
         if (response.ok) {
             const spot = await response.json()

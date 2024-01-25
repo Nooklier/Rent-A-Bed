@@ -6,6 +6,7 @@ import * as sessionActions from './store/session';
 import SpotPanels from './components/HomepagePanels/spotPanels';
 import SpotDetails from './components/SpotDetails/SpotDetails';
 
+
 function Layout() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -20,22 +21,20 @@ function Layout() {
     <>
       <Navigation isLoaded={isLoaded} />
       {isLoaded && <Outlet />}
-      {/* <SpotPanels /> */}
     </>
   );
 }
 
 const router = createBrowserRouter([
   {
-    path: '/',
     element: <Layout />,
     children: [
       {
-        index: true,
+        path: '/',
         element: <SpotPanels />
       },
       {
-        path: '/spots/:spotId',
+        path: 'spots/:spotId',
         element: <SpotDetails />
       }
     ]

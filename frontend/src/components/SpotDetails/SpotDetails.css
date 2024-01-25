@@ -1,0 +1,24 @@
+.below-image-container {
+    display: grid;
+    grid-template-columns: 80% 20%;
+}
+
+.reserve-button-container-price-star {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.reserve-button {
+    display: grid;
+    align-items: center;
+}
+
+.review-first-name-container {
+    display: grid;
+    grid-template-columns: 90% 10%;
+}
+
+.post-review-button {
+    display: block;
+    margin: auto;
+}
