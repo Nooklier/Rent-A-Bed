@@ -1,5 +1,5 @@
-import { csrfFetch } from "../csrf"
 import { getReviews } from "./ReviewActions"
+
 
 export const fetchReviews = (spotId) => async (dispatch) => {
     try {

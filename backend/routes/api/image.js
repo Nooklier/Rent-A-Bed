@@ -52,8 +52,6 @@ router.delete('/review-images/:imageId', requireAuth, async (req, res) => {
     const user = req.user.id;
     const image = await Image.findOne({where: {id: imageId, imageableType: 'Review'}, include: {model: Review}})
 
-    console.log(image)
-
     // IF REVIEW IMAGE WITH ID DOES NOT EXIST
     if (!image) {
         return res.status(404).json({

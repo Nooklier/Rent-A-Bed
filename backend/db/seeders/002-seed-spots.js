@@ -19,7 +19,7 @@ module.exports = {
         lat: 11.11,
         lng: 111.11,
         name: 'The Howling Abyss Hotel',
-        description: 'An ancient stronghold built to watch over the dark chasm of the Howling Abyss, the Citadel also houses many of the Freljord hidden treasures and historical records.',
+        description: 'Welcome to the Enchanted Abyss Hotel, a mesmerizing retreat where the mystical world of fantasy meets the pinnacle of luxury. Nestled in a breathtaking icy landscape, inspired by the legendary Howling Abyss, our hotel offers an experience unlike any other. Luxurious Accommodations: Each of our rooms and suites is a masterpiece, featuring elegant decor that weaves in elements of the icy abyss. Enjoy unparalleled comfort with state-of-the-art amenities, plush furnishings, and windows that open to stunning, frost-kissed vistas. Gastronomic Delights: Our gourmet restaurants serve a fusion of local and exotic cuisines, crafted by world-class chefs. Dine under the shimmering light of ice chandeliers, or enjoy a private, magical meal set against the backdrop of ancient ruins. Exclusive Spa Experience: Indulge in our ice-themed spa, where wellness and magic unite. Rejuvenate with unique treatments that blend traditional relaxation techniques with the mystical energies of the Abyss.',
         price: 100
       },
       {
@@ -31,7 +31,7 @@ module.exports = {
         lat: 22.22,
         lng: 122.22,
         name: 'Hall of Valor Hotel',
-        description: 'The throne of Demacia resides in the Hall of Valor. Here, the deeds of the noble and mighty are honored beneath the radiance of marble and sunlight.',
+        description: 'Welcome to the Majestic Valor Hotel, a Luxurious Escape Inspired by the Famed Hall of Valor from League of Legends! Nestled amidst breathtaking mountainous landscapes, the Majestic Valor Hotel is a grandiose destination where medieval fantasy meets modern luxury. Our castle-like exterior, complete with towering spires and intricate stonework, promises an experience like no other. Step through our massive arched entrance and be transported into a world of opulence. The lobby, with its high vaulted ceilings, chandeliers, and medieval-inspired decor, offers a grand welcome. Our friendly staff are at your service, ensuring a seamless check-in to start your extraordinary stay. Our rooms, each uniquely themed, blend comfort with the allure of a bygone era. Enjoy the modern amenities, plush bedding, and breathtaking views of the mystical surroundings.',
         price: 200
       },
       {

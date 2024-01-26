@@ -1,3 +1,9 @@
+.outside-container {
+    display: flex;
+    justify-content: center;
+}
+
+
 .container {
     display: flex;
     justify-content: center;
@@ -18,21 +24,125 @@
     font-size: small;
 }
 
-.image-container {
-    display: flex;
-    border: 2px solid black;
+.spot-image-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     max-width: 1000px;
+    max-height: 600px;
     width: 1000px;
     height: 600px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
-.image-container div {
-    display: grid;
-    grid-template-columns: 50% 25% 25%;
-}
-
-.spot-detail-image {
-    max-width: 500px;
-    max-height: 500px;
+.image-panel-container-first {
+    width: 500px;
+    height: 600px;
     object-fit: cover;
+    border: 2px solid black;
+    border-radius: 5px;
+    margin-right: 2px;
+}
+
+.images-grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    grid-template-rows: 1fr 1fr; 
+    gap: 2px;
+}
+
+.image-panel-container-other {
+   
+    width: 250px;
+    height: 300px;
+    object-fit: cover;
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
+.reserve-container {
+    border: 2px solid black;
+    padding: 5px;
+    border-radius: 5px;
+    box-shadow: 3px 3px 3px gray;
+}
+
+.price-star {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px;
+    font-size: small;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+}
+
+.button {
+    width: 200px;
+    border: 1px solid black;
+    background-color: rgb(254, 253, 175);
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px gray;
+}
+.star-icon {
+    width: 10px;
+    height: 10px;
+}
+
+.star-icon-big {
+    width: 15px;
+    height: 15px;
+}
+
+.bottom-container{
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+    margin-top: 5px;
+}
+
+.reviews-container {
+    border-top: 2px solid black;
+    margin-top: 5px;
+}
+
+.reviews-container h1{
+    margin: 5px;
+    font-size: large;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.post-review-button {
+    border: 1px solid black;
+    border-radius: 3px;
+    background-color: rgb(254, 253, 175);
+    box-shadow: 1px 1px 1px gray;
+    width: 140px;
+}
+
+.review-container {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.review-container h4 {
+    margin: 0px;
+    font-weight: lighter;
+    font-size: large;
+}
+
+.month-year {
+    color: gray;
+    font-size: small;
+}
+
+.review-review {
+    font-size: small;
 }

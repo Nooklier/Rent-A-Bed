@@ -143,7 +143,7 @@ router.get('', validateQuery, async (req, res) => {
 
     for (const spot of spots) {
 
-        const image = await Image.findOne({where: {imageableType: 'Spot', preview: true}})
+        const image = await Image.findOne({where: {imageableType: 'Spot', preview: true, imageableId: spot.id}})
 
         if (image) {
             spot.dataValues.previewImage = image.url;
@@ -169,7 +169,7 @@ router.get('', validateQuery, async (req, res) => {
                 createdAt: spot.createdAt,
                 updatedAt: spot.updatedAt,
                 avgRating: avgReviews || 0,
-                previewImage: image.url
+                previewImage: image ? image.url : 'image not found'
         })
     }
 
@@ -452,7 +452,6 @@ router.delete('/:spotId', requireAuth, async (req, res) => {
 router.get('/:spotId/reviews', async (req, res) => {
 
     const { spotId } = req.params;
-    const currentUser = await User.findByPk(req.user.id)
     const reviews = await Review.findAll({where: { spotId: spotId}, include:[{model: User}, {model: Image}]})
     const spot = await Spot.findByPk(spotId);
     
@@ -479,14 +478,15 @@ router.get('/:spotId/reviews', async (req, res) => {
         resObj.push({
             id: review.id,
             userId: review.userId,
+            spotId: review.spotId,
             review: review.review,
             stars: review.stars,
             createdAt: review.createdAt,
             updatedAt: review.updatedAt,
             User: {
-            id: currentUser.id,
-            firstName: currentUser.firstName,
-                lastName: currentUser.lastName
+            id: review.User.id,
+            firstName: review.User.firstName,
+            lastName: review.User.lastName
             },
             ReviewImages: reviewImg
         })

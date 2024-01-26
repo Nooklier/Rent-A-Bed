@@ -8,9 +8,13 @@ const reviewsReducer = (state = initialState, action) => {
     switch (action.type) {
 
         case GET_REVIEWS:
+            let arr = []
             action.payload.Reviews.map(review => {
-                newState[review.id] = review
+                arr.push(review)
             })
+            if (arr.length) {
+                newState[arr[0].spotId] = arr              
+            }
             return newState
         
         default:
