@@ -1,18 +1,26 @@
 import { useState, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import * as sessionActions from '../../store/session';
-import OpenModalMenuItem from './OpenModalMenuItem';
+import OpenModalMenuItem from '../OpenModalButton/OpenModalMenuItem';
 import LoginFormModal from '../LoginFormModal/LoginFormModal';
 import SignupFormModal from '../SignupFormModal/SignupFormModal';
+import { useNavigate } from 'react-router-dom'
+import './ProfileButton.css'
 
 function ProfileButton({ user }) {
+
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
+  const navigate = useNavigate()
 
   const toggleMenu = (e) => {
-    e.stopPropagation(); // Keep from bubbling up to document and triggering closeMenu
+    e.stopPropagation();
     setShowMenu(!showMenu);
+  };
+
+  const handleManageSpots = () => {
+    navigate('/spots/current');
   };
 
   useEffect(() => {
@@ -41,8 +49,9 @@ function ProfileButton({ user }) {
 
   return (
     <>
-      <button onClick={toggleMenu}>
-        <div className="fas fa-user-circle" />
+      <button onClick={toggleMenu} className='profile-button'>
+        <img src='https://res.cloudinary.com/dikyl7t9p/image/upload/v1706247261/hamburger-menu-line-icon-free-vector_luainf.jpg'></img>
+        <i className="fas fa-user-circle" />
       </button>
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
@@ -50,8 +59,9 @@ function ProfileButton({ user }) {
             <li>{user.username}</li>
             <li>{user.firstName} {user.lastName}</li>
             <li>{user.email}</li>
+            <li onClick={handleManageSpots}>Manage Spots</li>
             <li>
-              <button onClick={logout}>Log Out</button>
+              <button onClick={logout} className='log-out'>Log Out</button>
             </li>
           </>
         ) : (

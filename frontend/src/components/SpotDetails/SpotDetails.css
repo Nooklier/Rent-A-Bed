@@ -1,24 +1,38 @@
-.below-image-container {
-    display: grid;
-    grid-template-columns: 80% 20%;
+.container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    font-family: Arial;
+    max-width: 1000px;
+    margin-top: 5px;
 }
 
-.reserve-button-container-price-star {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+.spot-name {
+   margin: 0px;
+   margin-top: 5px;
+   font-size: larger;
 }
 
-.reserve-button {
-    display: grid;
-    align-items: center;
+.spot-location {
+    margin: 2px;
+    font-size: small;
 }
 
-.review-first-name-container {
-    display: grid;
-    grid-template-columns: 90% 10%;
+.image-container {
+    display: flex;
+    border: 2px solid black;
+    max-width: 1000px;
+    width: 1000px;
+    height: 600px;
 }
 
-.post-review-button {
-    display: block;
-    margin: auto;
+.image-container div {
+    display: grid;
+    grid-template-columns: 50% 25% 25%;
+}
+
+.spot-detail-image {
+    max-width: 500px;
+    max-height: 500px;
+    object-fit: cover;
 }

@@ -19,68 +19,35 @@ function SpotPanels () {
     }
     
     return (
-      <div>
+      <div className='image-panels-container'>
 
-        {/********************** IMAGES PANELS AREA ************************/}
-        <div>
-          {/*************** IMAGES PANELS *******************/}
-           {spots.map(spot => (
-            <div key={spot.id}>
+          {spots.map(spot => (
+            <div className='image-container' key={spot.id}>
+            <div className='image-panels'>
 
             <nav>
               <NavLink to={`/spots/${spot.id}`}>
-                <img className='image' src={spot.previewImage} alt={spot.name}/>
+                <img className='image' src={spot.previewImage} alt={spot.name} title={spot.name}/>
               </NavLink>
             </nav>
 
-            <div>
+            <h4>
               {spot.city}, {spot.state}
-              <span>{spot.avgRating}</span>
-            </div>
-            <div>${spot.price} night</div>
+              <span>
+                <img className='star' src='https://res.cloudinary.com/dikyl7t9p/image/upload/v1706180574/images_pgo0nc.png'/>
+                {' '}{spot.avgRating}
+              </span>
+            </h4>
+            <h5>
+            ${spot.price} night
+            </h5>
+          </div>
           </div>
           ))}
 
-        </div>
       </div>
     );
     
   }
   
-  export default SpotPanels
-  /********************************************** TESTING SPOTS BUTTON ******************************************/
-  
-    // const handleDelete = (spotId) => {
-    //   dispatch(removeSpot(spotId));
-    // };
-
-    // const handleUpdate = (spot) => {
-    //   const data = {...spot, price : 200}
-    //   console.log(data)
-    //   dispatch(fetchUpdateSpot(spot.id, data))
-    // }
-
-    // const handleGetSpot = (spotId) => {
-    //   dispatch(fetchSpot(spotId))
-    // }
-
-    // const handleCreateSpot = () => {
-    //   const data = {
-    //     address: "123 Main Street",
-    //     city: "Exampleville",
-    //     state: "CA",
-    //     country: "United States",
-    //     lat: 37.7749,
-    //     lng: -122.4194,
-    //     name: "Example Place",
-    //     description: "A wonderful place to visit",
-    //     price: 50.00
-    //   }
-    //   dispatch(addSpot(data))
-    // }
-
-    // const handleBookings = (spotId) => {
-    //   dispatch(fetchBookings(spotId))
-    // }
-
-  /**************************************************************************************************************/
+  export default SpotPanels;

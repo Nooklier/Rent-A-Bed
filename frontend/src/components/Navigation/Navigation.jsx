@@ -8,21 +8,20 @@ function Navigation({ isLoaded }) {
   const sessionUser = useSelector(state => state.session.user);
 
   return (
-    <ul className='nav-container'>
-      <nav>
+    <div className='nav-container'>
+      <div className='icon-title'>
         <NavLink to="/">
-          <img className='icon' src='https://res.cloudinary.com/dikyl7t9p/image/upload/v1706115298/kisspng-league-of-legends-computer-icons-riven-riot-games-legends-5aeb2a5fc077c7.5067134315253612477884_ipmu3w.jpg'/>
+          <img className='icon' src='https://res.cloudinary.com/dikyl7t9p/image/upload/v1706229549/HomepageIcon.webp'/>
         </NavLink>
-      </nav>
+        <div>Runeterra</div>
+      </div>
+
       <div>
-        <NavLink to='/'>Create a New Spot</NavLink>
         <div>
-        {isLoaded && (
-            <ProfileButton user={sessionUser} />
-        )}
+        {isLoaded && (<ProfileButton user={sessionUser} />)}
         </div>
       </div>
-    </ul>
+    </div>
   );
 }
 

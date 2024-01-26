@@ -3,7 +3,7 @@ import { getReviews } from "./ReviewActions"
 
 export const fetchReviews = (spotId) => async (dispatch) => {
     try {
-        const response = await csrfFetch (`/api/spots/${spotId}/reviews`)
+        const response = await fetch (`/api/spots/${spotId}/reviews`)
 
         if(response.ok) {
             const reviews = await response.json()

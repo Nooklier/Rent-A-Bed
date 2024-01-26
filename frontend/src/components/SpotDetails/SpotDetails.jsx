@@ -20,7 +20,6 @@ function SpotDetails () {
     alert('Feature Coming Soon...')
   }
   
-  
   useEffect(() => {
     dispatch(fetchSpot(spotId))
   },[dispatch, spotId])
@@ -29,8 +28,8 @@ function SpotDetails () {
     dispatch(fetchReviews(spotId))
   }, [dispatch, spotId])
   
-  if (!spot) {
-    return 'loading'
+  if (!spot || !spot.Owner || !spot.SpotImages) {
+    return <div>...Loading</div>
   } 
   
   console.log('return only 1 spot', spot)
@@ -38,77 +37,77 @@ function SpotDetails () {
   console.log('all reviews', reviews)
   
   return (
-   <div>
-    <h1>{spot.name}</h1>
-    <div>{spot.city}, {spot.state}, {spot.country}</div>
+    <div className="container">
+        {spot && (
+          <>
+            <h1 className="spot-name">{spot.name}</h1>
+            <div className="spot-location">{spot.city}, {spot.state}, {spot.country}</div>
+            
+            <div className="image-container">
+              <div>
+                {spot.SpotImages.length > 0 && spot.SpotImages.map(image => (
+                  <img className='spot-detail-image' src={image.url} key={image.id}/>
+                ))}
+              </div>
+            </div>
+                
+            <div>
 
-    <div className="grid-container">
-      <div className='image-container'>
-        {spot.SpotImages.map(image => (
-          <img className='image-container img' src={image.url} key={image.id}/>
-        ))}
-      </div>
+              <div>
+                <h1>Hosted by {spot.Owner.firstName} {spot.Owner.lastName}</h1>
+                <div>{spot.description}</div>
+              </div>
+                
+              <span>
+
+                <span>
+                  ${spot.price} night
+                  <span>
+                    <img src="https://res.cloudinary.com/dikyl7t9p/image/upload/v1706180574/images_pgo0nc.png"/>
+                    <span>{spot.avgStarRating} · {spot.numReviews} Reviews</span>
+                  </span>
+                </span>
+                
+                <div>
+                  <button onClick={() => reserveAlert()}>Reserve</button>
+                </div>
+                
+              </span>
+                
+            </div>
+                
+            <hr />    
+
+            {/******************************************************* ALL REVIEWS ************************************************************/}
+
+            <h1>
+              <span>
+                <img src="https://res.cloudinary.com/dikyl7t9p/image/upload/v1706180574/images_pgo0nc.png" />
+                <span> {spot.avgStarRating} · {spot.numReviews} Reviews</span>
+              </span>
+
+              <span>
+                {spot.Owner.id !== userId ? <button className="post-review-button">Post Review</button> : <span/>}
+              </span>
+            </h1>
+
+            {/***************************************** REVIEW DETAILS *****************************************************/}
+
+            {reviews.length > 0 ? reviews.map(review => (
+              <div key={review.id}>
+                <div>{review.User.firstName}</div>
+                <div>{new Date(review.createdAt).toLocaleString('default', { month: 'long', year: 'numeric' })}</div>
+                <div>{review.review}</div>
+              </div>
+            )) : <div>Be the first to post a review!</div>}
+
+
+        </>
+      )}
     </div>
-
-{/********************************************* HOSTED BY, DETAILS, & RESERVE BUTTON ***********************************************/}
-
-    <div className="below-image-container">
-
-      {/*************************** HOSTED BY & DETAILS *******************************************/}
-      <div>
-        <h1 className="hosted-container">Hosted by {spot.Owner.firstName} {spot.Owner.lastName}</h1>
-        <div>{spot.description}</div>
-      </div>
-
-      {/******************************* RESERVATION BOX ********************************************/}
-      <span>
-
-        {/*** RESERVATION PRICE, STARS, AVGRATING & REVIEWS ***/}
-        <span className="reserve-button-container-price-star">
-          ${spot.price} night
-          <span>
-            <img className='star-icon' src="https://res.cloudinary.com/dikyl7t9p/image/upload/v1706180574/images_pgo0nc.png"/>
-            <span>{spot.avgStarRating} · {spot.numReviews} Reviews</span>
-          </span>
-        </span>
-
-        {/******** RESERVATION BUTTON ********/}
-        <div className="reserve-button">
-          <button onClick={() => reserveAlert()}>Reserve</button>
-        </div>
-
-      </span>
-
-    </div>
-
-    <hr />
-
-{/******************************************************* ALL REVIEWS ************************************************************/}
-
-    {/******************************* REVIEW STAR, AVGRATING, & REVIEWS ********************************************/}
-    <h1 className="review-first-name-container">
-      <span>
-        <img className='star-icon' src="https://res.cloudinary.com/dikyl7t9p/image/upload/v1706180574/images_pgo0nc.png" />
-        <span> {spot.avgStarRating} · {spot.numReviews} Reviews</span>
-      </span>
-      <span>
-        {spot.Owner.id !== userId ? <button className="post-review-button">Post Review</button> : <span/>}
-      </span>
-    </h1>
-    
-    {/***************************************** REVIEW DETAILS *****************************************************/}
-
-    {reviews.map(review => (
-      <div key={review.id}>
-        <div>{review.User.firstName}</div>
-        <div>{new Date(review.createdAt).toLocaleString('default', { month: 'long', year: 'numeric' })}</div>
-        <div>{review.review}</div>
-      </div>
-    ))}
-
-
-   </div>
   )
+
 }
+
 
 export default SpotDetails;
