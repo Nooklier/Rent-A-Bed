@@ -43,7 +43,7 @@ module.exports = {
         lat: 33.33,
         lng: 133.33,
         name: 'The Sun Disc Hotel',
-        description: 'The empire of Shurima was once a thriving civilization that spanned a vast desert. After an era of growth and prosperity, the fall of its gleaming capital left the empire in ruins. Over the millennia, tales of Shurima glorious capital became myth and relation amongst the descendants of the scattered survivors.',
+        description: "Discover the Splendor of the Sun Disc Hotel: Where Ancient Mystique Meets Modern Luxury. Nestled in a serene setting, our hotel is a masterpiece inspired by the legendary Sun Disc from League of Legends. Experience grandeur in every detail, from the majestic golden-hued exterior with its towering spires to the opulent interiors adorned with intricate designs. Luxuriate in our sumptuously appointed rooms, dine in our exquisite restaurants where culinary delights await, and unwind in our tranquil pool area. The Sun Disc Hotel is not just a stay, it's an enchanting journey into a realm of unparalleled luxury and mystical charm. Book your magical escape now and immerse yourself in an experience like no other.",
         price: 300
       },
       {
@@ -55,7 +55,7 @@ module.exports = {
         lat: 44.44,
         lng: 144.44,
         name: 'Lights and Shadows Hotel',
-        description: 'Most of Zaun structures are crafted from lattice ironwork, either forged in the many seething foundries or wrought from scavenged material discarded from above.',
+        description: "Discover the Enigmatic Allure of the Zaun Hotel: A League of Legends-Inspired Retreat! Immerse yourself in the captivating world of Zaun, inspired by the popular universe of League of Legends. Our hotel offers an unforgettable experience that merges the rustic charm of steampunk with a touch of modern luxury. Each detail of our establishment, from the high-tech, neon-lit exteriors to the dark, industrial-themed interiors, is designed to transport you into a realm of fantasy and adventure. Step into our lobby, where the fusion of exposed pipes, metal beams, and cogwheels create an ambiance straight out of a futuristic fantasy. Our rooms, each a masterpiece of design, offer the ultimate comfort with a twist of Zaun's unique aesthetic—featuring ambient neon lighting, luxurious bedding, and thematic artwork that tells a story at every glance." ,
         price: 400
       },
       {
@@ -67,7 +67,7 @@ module.exports = {
         lat: 55.55,
         lng: 155.55,
         name: 'The Great Stand Hotel',
-        description: 'Situated at the heart of the continent, the Placidium is one of Ionia’s most sacred places. Many have journeyed here to study at renowned schools, or meditate in its wild, magical gardens.',
+        description: "Escape to Elegance - Discover the Enchantment of Ionian Splendor! Welcome to our luxurious hotel, an exquisite retreat where the mystical beauty of Ionia from the world-renowned League of Legends comes to life. Nestled in a breathtaking, serene landscape, our hotel offers an unrivaled experience of harmony and tranquility. As you step into our grand lobby, you're greeted by the fusion of traditional Ionian architecture and modern luxury. The vibrant colors, intricate patterns, and stunning murals transport you to a world of elegance and charm. Our spacious, well-appointed rooms offer a sanctuary of comfort and peace, each designed with Ionian-inspired décor, offering panoramic views of the mystical Ionian landscapes.",
         price: 500
       }
     ], {})

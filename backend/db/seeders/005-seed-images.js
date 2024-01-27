@@ -87,45 +87,111 @@ module.exports = {
           imageableType: 'Review'
         },
 
-
-
-
-
-
+        // SPOT: 3 IMAGES
         {
-          url: 'https://res.cloudinary.com/dikyl7t9p/image/upload/v1705796933/Screenshot_2024-01-20_at_4.27.20_PM_v2srmf.png',
+          url: 'https://res.cloudinary.com/dikyl7t9p/image/upload/v1706337560/The%20Sun%20Disc%20hotel/file-IftjJZq0ft15qamQTVk1xHIk_lhnkqt.webp',
           preview: true,
           imageableId: 3,
           imageableType: 'Spot'
         },
         {
-          url: 'https://res.cloudinary.com/dikyl7t9p/image/upload/v1705803424/Screenshot_2024-01-20_at_4.30.59_PM_mdkrm3.png',
+          url: 'https://res.cloudinary.com/dikyl7t9p/image/upload/v1706337556/The%20Sun%20Disc%20hotel/file-HS9rgNL7x5AItlsbb3OGdyPf_xj5bt9.webp',
+          preview: true,
+          imageableId: 3,
+          imageableType: 'Spot'
+        },
+        {
+          url: 'https://res.cloudinary.com/dikyl7t9p/image/upload/v1706337530/The%20Sun%20Disc%20hotel/file-RqHrLBnaTEZCdWLoaeGBTyzq_geghml.webp',
+          preview: true,
+          imageableId: 3,
+          imageableType: 'Spot'
+        },
+        {
+          url: 'https://res.cloudinary.com/dikyl7t9p/image/upload/v1706337535/The%20Sun%20Disc%20hotel/file-JpIMc6qjyH5KRbRFFS72Rkbd_mgqvny.webp',
+          preview: true,
+          imageableId: 3,
+          imageableType: 'Spot'
+        },
+
+        // REVIEW: 3 IMAGES
+        {
+          url: 'https://res.cloudinary.com/dikyl7t9p/image/upload/v1706337543/The%20Sun%20Disc%20hotel/file-f4qW2b9x8AldjohG4xin0WHi_jkg973.webp',
+          preview: true,
+          imageableId: 3,
+          imageableType: 'Review'
+        }, 
+        {
+          url: 'https://res.cloudinary.com/dikyl7t9p/image/upload/v1706337539/The%20Sun%20Disc%20hotel/file-20NmBxsEZ4eg8yVZPfO2V2Qw_pxzkiv.webp',
+          preview: true,
+          imageableId: 3,
+          imageableType: 'Review'
+        }, 
+
+        // SPOT: 4 IMAGES
+        {
+          url: 'https://res.cloudinary.com/dikyl7t9p/image/upload/v1706337764/Lights%20and%20shadows%20hotel/file-swoqYow6na9JLUy4nF5phpeX_bbnoom.webp',
           preview: true,
           imageableId: 4,
           imageableType: 'Spot'
         },
         {
-          url: 'https://res.cloudinary.com/dikyl7t9p/image/upload/v1705803534/Screenshot_2024-01-20_at_6.18.33_PM_sovwxl.png',
+          url: 'https://res.cloudinary.com/dikyl7t9p/image/upload/v1706337994/Lights%20and%20shadows%20hotel/file-XahQASDJ0RDKxoLVCZrW4MEE_sk6phj.webp',
+          preview: true,
+          imageableId: 4,
+          imageableType: 'Spot'
+        },
+        {
+          url: 'https://res.cloudinary.com/dikyl7t9p/image/upload/v1706337939/Lights%20and%20shadows%20hotel/file-o3T58wrbhRnftNtK1PzFuiT9_fpqvxh.webp',
+          preview: true,
+          imageableId: 4,
+          imageableType: 'Spot'
+        },
+        {
+          url: 'https://res.cloudinary.com/dikyl7t9p/image/upload/v1706337890/Lights%20and%20shadows%20hotel/file-N4IW6TFNk6qgwHmwLa9PFSAb_u8evrm.webp',
+          preview: true,
+          imageableId: 4,
+          imageableType: 'Spot'
+        },
+
+        // REVIEW: 4 IMAGES
+        {
+          url: 'https://res.cloudinary.com/dikyl7t9p/image/upload/v1706337804/Lights%20and%20shadows%20hotel/file-ZDrbKwMWZnB1IZ5t1dlbdysO_ffcfyt.webp',
+          preview: true,
+          imageableId: 4,
+          imageableType: 'Review'
+        },  
+
+        // SPOT: 5 IMAGES
+        {
+          url: 'https://res.cloudinary.com/dikyl7t9p/image/upload/v1706338063/The%20Placidium%20of%20Navori/file-Ysqe5poYwaaULgS9tKgjoAjL_nilscx.webp',
           preview: true,
           imageableId: 5,
           imageableType: 'Spot'
         },
         {
-          url: 'https://res.cloudinary.com/dikyl7t9p/image/upload/v1705803875/Lissandra_34_ttveor.jpg',
+          url: 'https://res.cloudinary.com/dikyl7t9p/image/upload/v1706338106/The%20Placidium%20of%20Navori/file-8ZjYTP8uHQWnnJxpWUa64UkB_ymmjoc.webp',
           preview: true,
-          imageableId: 2,
-          imageableType: 'Review'
-        },  
+          imageableId: 5,
+          imageableType: 'Spot'
+        },
         {
-          url: 'https://res.cloudinary.com/dikyl7t9p/image/upload/v1705804000/Screenshot_2024-01-20_at_6.26.29_PM_zedtlo.png',
+          url: 'https://res.cloudinary.com/dikyl7t9p/image/upload/v1706338150/The%20Placidium%20of%20Navori/file-bhiq4LbGzIQGmeLiHwXyqsP3_l6tsqw.webp',
           preview: true,
-          imageableId: 3,
-          imageableType: 'Review'
-        },  
+          imageableId: 5,
+          imageableType: 'Spot'
+        },
         {
-          url: 'https://res.cloudinary.com/dikyl7t9p/image/upload/v1705803424/Screenshot_2024-01-20_at_4.30.59_PM_mdkrm3.png',
+          url: 'https://res.cloudinary.com/dikyl7t9p/image/upload/v1706338205/The%20Placidium%20of%20Navori/file-OrKCGIBxCCezxYDygQtbUQCf_yjiuln.webp',
           preview: true,
-          imageableId: 4,
+          imageableId: 5,
+          imageableType: 'Spot'
+        },
+
+        // REVIEW: 5 IMAGES
+        {
+          url: 'https://res.cloudinary.com/dikyl7t9p/image/upload/v1706340859/The%20Placidium%20of%20Navori/file-orcU2U0h6ZKOPjmbF4Fl1foB_mvu8bw.webp',
+          preview: true,
+          imageableId: 5,
           imageableType: 'Review'
         }
       ])
