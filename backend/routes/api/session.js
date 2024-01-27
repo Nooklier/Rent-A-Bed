@@ -28,7 +28,7 @@ router.post('/', validateLogin, async (req, res, next) => {
 
   // IF USER DOES NOT EXIST OR PASSWORD DOES NOT MATCH
   if (!user) {
-    const err = new Error('Invalid credentials')
+    const err = new Error('The provided credentials were invalid.')
     err.title = 'Invalid credentials'
     err.status = 401;
     return next(err)
