@@ -34,9 +34,9 @@ function SpotDetails () {
     return <div>...Loading</div>
   } 
   
-  console.log('return only 1 spot', spot)
-  console.log('session user', userId)
-  console.log('all reviews', reviews)
+  // console.log('return only 1 spot', spot)
+  // console.log('session user', userId)
+  // console.log('all reviews', reviews)
   
   return (
     <div className="outside-container">
@@ -68,7 +68,7 @@ function SpotDetails () {
                     <div>${spot.price} night</div>
                     <span>
                       <img className='star-icon'src="https://res.cloudinary.com/dikyl7t9p/image/upload/v1706180574/images_pgo0nc.png"/>
-                      <span>{' '}{spot.avgStarRating} · {spot.numReviews} Reviews</span>
+                      <span> {spot.avgStarRating} {spot.numReviews === 1 ?  `· 1 Review` : spot.numReviews > 1 ?  `· ${spot.numReviews} Reviews` : 'New'}</span>
                     </span>
                   </div>
                   <div className="button-container">
@@ -82,7 +82,7 @@ function SpotDetails () {
               <h1>
                 <span>
                   <img className='star-icon-big' src="https://res.cloudinary.com/dikyl7t9p/image/upload/v1706180574/images_pgo0nc.png" />
-                  <span> {spot.avgStarRating} · {spot.numReviews} Reviews</span>
+                  <span> {spot.avgStarRating} {spot.numReviews === 1 ?  `· 1 Review` : spot.numReviews > 1 ?  `· ${spot.numReviews} Reviews` : 'New'}</span>
                 </span>
                 <div>
                   {spot.Owner.id !== userId && userId ? <button className="post-review-button">Post Your Review</button> : <span/>}

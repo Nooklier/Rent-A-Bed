@@ -1,5 +1,5 @@
 import { csrfFetch } from "../csrf"
-import { getSpots, updateSpot, getSpot, deleteSpot } from "./spotsActions"
+import { getSpots, updateSpot, getSpot, deleteSpot, addImages, createSpot } from "./spotsActions"
 
 export const fetchSpots = () => async (dispatch) => {
     try {
@@ -86,11 +86,31 @@ export const addSpot = (data) => async (dispatch) => {
 
     if(response.ok) {
       const newSpot = await response.json()
-      dispatch(addSpot(newSpot))
+      dispatch(createSpot(newSpot))
+      return newSpot;
     } else {
       throw new Error('Can not create spot')
     }
   } catch (error) {
     return error
   }
+}
+
+export const addSpotImage = (imageData) => async (dispatch) => {
+    try {
+      const response = await csrfFetch(`/api/spots/${imageData.imageableId}/images`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(imageData)
+      });
+
+      if (response.ok) {
+        const image = await response.json();
+        dispatch(addImages(image))
+        return image
+      }
+    } catch (error) {
+      return error
+    }
 }

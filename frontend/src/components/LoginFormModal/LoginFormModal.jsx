@@ -3,29 +3,26 @@ import { useState } from 'react';
 import * as sessionActions from '../../store/session';
 import { useDispatch } from 'react-redux';
 import { useModal } from '../../context/Modal';
-import { useNavigate } from "react-router-dom";
 import './LoginForm.css';
 
-function LoginFormModal() {
+function LoginFormModal({navigate}) {
   const dispatch = useDispatch();
   const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
-  const navigate = useNavigate()
 
-  const handleSubmit = (e) => {
+const handleSubmit = (e) => {
     e.preventDefault();
     setErrors([]);
+
     return dispatch(sessionActions.login({ credential, password }))
       .then(() => {
-        closeModal();
-        navigate('/');
+        (closeModal())
+        navigate('/')    
       })
-      // .then(closeModal)    
       .catch(async (res) => {
         const data = await res.json();
-        console.log('inside', data)
         if (data && data.message) {
           setErrors([data.message]);
         }

@@ -1,0 +1,114 @@
+.create-spot-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: Arial;
+}
+
+.create-spot-form-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 500px;
+    padding: 10px;
+}
+
+.create-spot-form-container button {
+    background-color: rgb(236, 240, 180);
+    margin-top: 10px;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    border-radius: 5px;
+}
+
+.create-spot-form-container h2 {
+    margin-bottom: 0px;
+}
+
+.create-spot-form-container h3 {
+    font-size: medium;
+    margin-bottom: 5px;
+    border-top: 1px solid black;
+    padding-top: 10px;
+}
+
+.create-spot-form-container div {
+    font-size: small;
+    margin-bottom: 5px;
+}
+
+.create-spot-country {
+    margin-top: 10px;
+}
+
+.create-spot-country div {
+    font-size: small;
+}
+
+.create-spot-country input {
+    margin-top: 0px;
+    margin-bottom: 5px;
+    width: 480px;
+}
+
+.city-state {
+    display: flex;
+    justify-content: space-between;
+    font-size: small;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.city-state input {
+    width: 230px;
+}
+
+.lng-lat {
+    display: flex;
+    justify-content: space-between;
+    font-size: small;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding-bottom: 10px;
+}
+
+.lng-lat input {
+    width: 230px;
+}
+
+.textarea {
+  height: 100px;
+  margin-top: 5px;
+}
+
+.name-your-spot-input {
+    margin-top: 10px;
+    width: 100%;
+}
+
+.details-input {
+    margin-top: 10px;
+    width: 465px;
+}
+
+.images-url {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 5px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid black;
+}
+
+.country-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.error-message {
+    color: red;
+    font-size: small;
+}

@@ -46,8 +46,8 @@
     border: 1px solid black;
     background-color: white;
     padding-right: 10px;
-    width: 150px;
-    height: 10px;
+    width: 200px;
+    height: 50px;
     font-size: smaller;
     border-radius: 5px;
   }
@@ -60,6 +60,22 @@
     cursor: pointer;
   }
 
+  .profile-after-login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    font-family: Arial;
+    font-size: small;
+    cursor: pointer;
+  }
+
   .hidden {
     display: none;
   }
+
+  .first-li {
+    display: flex;
+    flex-direction: column;
+  }
+

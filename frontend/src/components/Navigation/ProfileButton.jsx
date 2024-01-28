@@ -23,6 +23,8 @@ function ProfileButton({ user }) {
     navigate('/spots/current');
   };
 
+  
+
   useEffect(() => {
     if (!showMenu) return;
 
@@ -56,9 +58,10 @@ function ProfileButton({ user }) {
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
           <>
-            <li>Hello, {user.username}</li>
-            {/* <li>{user.firstName} {user.lastName}</li> */}
-            <li>{user.email}</li>
+            <li className='first-li'>
+              <div>Hello, {user.username}</div>
+              <div>{user.email}</div>
+            </li>
             <li onClick={handleManageSpots}>Manage Spots</li>
             <li>
               <button onClick={logout} className='log-out'>Log Out</button>
@@ -69,7 +72,7 @@ function ProfileButton({ user }) {
             <OpenModalMenuItem
               itemText="Log In"
               onItemClick={closeMenu}
-              modalComponent={<LoginFormModal />}
+              modalComponent={<LoginFormModal navigate={navigate}/>}
             />
             <OpenModalMenuItem
               itemText="Sign Up"

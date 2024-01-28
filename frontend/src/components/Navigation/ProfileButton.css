@@ -19,3 +19,8 @@
     cursor: pointer;
 }
 
+.log-out {
+    width: 200px;
+    border-radius: 5px;
+    background-color: rgb(255, 255, 215);
+}

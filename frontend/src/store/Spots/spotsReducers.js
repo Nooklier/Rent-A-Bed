@@ -1,4 +1,4 @@
-import { CREATE_SPOT, DELETE_SPOT, GET_SPOT, GET_SPOTS, UPDATE_SPOT } from "./spotsTypes";
+import { ADD_IMAGE, CREATE_SPOT, DELETE_SPOT, GET_SPOT, GET_SPOTS, UPDATE_SPOT } from "./spotsTypes";
 
 const initialState = {}
 
@@ -26,8 +26,14 @@ const spotsReducer = (state = initialState, action) => {
             return newState
     
         case CREATE_SPOT:
-            newState.action.payload
+            newState[action.payload.id] = action.payload
             return newState
+
+        case ADD_IMAGE:
+
+           newState[action.payload] = action.payload
+            return newState
+
 
         default: 
             return state

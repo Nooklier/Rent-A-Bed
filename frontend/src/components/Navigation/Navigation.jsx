@@ -16,7 +16,8 @@ function Navigation({ isLoaded }) {
         <div>Runeterra</div>
       </div>
 
-      <div>
+      <div className='profile-after-login'>
+        {sessionUser && <NavLink to='/spots/new'>Create a New Spot</NavLink>}
         <div>
         {isLoaded && (<ProfileButton user={sessionUser} />)}
         </div>
