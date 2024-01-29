@@ -1,16 +1,10 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
 import './CreateReviewModal.css'
-import { addSpotReview } from "../../store/Spots/spotsThunk";
-import { useDispatch } from "react-redux";
 
 function CreateReviewModal({ onClose, onSubmit }) {
-
-    const {spotId} = useParams()
     const [review, setReview] = useState('');
     const [stars, setStars] = useState(0);
     const [error, setError] = useState('')
-    const dispatch = useDispatch()
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -76,7 +70,11 @@ function CreateReviewModal({ onClose, onSubmit }) {
                     </span>
                 ))}
             </div>
-            <button className='create-review-button' onClick={handleSubmit}>Submit Your Review</button>                           
+            <button 
+                className='create-review-button' 
+                onClick={handleSubmit}
+                disabled={review.length < 10}
+            >Submit Your Review</button>                           
         </div>
     </div>
   );

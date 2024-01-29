@@ -136,7 +136,6 @@ export const addSpotReview = (spotId, reviewData) => async (dispatch) => {
       }
     }
   } catch (error) {
-    console.log(error)
     return ['An error occured. Please try again']
   }
 };

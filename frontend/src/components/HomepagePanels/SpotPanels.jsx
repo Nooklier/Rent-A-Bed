@@ -35,7 +35,7 @@ function SpotPanels () {
               {spot.city}, {spot.state}
               <span>
                 <img className='star' src='https://res.cloudinary.com/dikyl7t9p/image/upload/v1706180574/images_pgo0nc.png'/>
-                {' '}{spot.avgRating}
+                {' '}{spot.avgRating.toFixed(1)}
               </span>
             </h4>
             <h5>

@@ -14,6 +14,7 @@ function SpotDetails () {
   const reviews = useSelector(state => state.reviews[spotId])
   const [reviewModalOpen, setReviewModalOpen] = useState(false)
   const [reviewCount, setReviewCount] = useState(0);
+  
 
   useEffect(() => {
     if (spotId) {
@@ -32,10 +33,7 @@ function SpotDetails () {
     if (response && !response.message) {
       setReviewCount(prevCount => prevCount + 1); 
       dispatch(fetchReviews(spotId));
-      // handleReviewModalClose();
     }
-
-    console.log('response is', response)
   };
 
   const reserveAlert = () => alert('Feature Coming Soon...');
@@ -43,6 +41,8 @@ function SpotDetails () {
   if (!spot || !spot.Owner || !spot.SpotImages) {
     return <div>...Loading</div>
   } 
+
+  const userReviewed = reviews?.some(review => review.userId === userId);
 
   return (
     <div className="outside-container">
@@ -74,7 +74,7 @@ function SpotDetails () {
                     <div>${spot.price} night</div>
                     <span>
                       <img className='star-icon'src="https://res.cloudinary.com/dikyl7t9p/image/upload/v1706180574/images_pgo0nc.png"/>
-                      <span> {spot.avgStarRating} {spot.numReviews === 1 ?  `· 1 Review` : spot.numReviews > 1 ?  `· ${spot.numReviews} Reviews` : 'New'}</span>
+                      <span> {spot.avgStarRating.toFixed(1)} {spot.numReviews === 1 ?  `· 1 Review` : spot.numReviews > 1 ?  `· ${spot.numReviews} Reviews` : 'New'}</span>
                     </span>
                   </div>
                   <div className="button-container">
@@ -88,10 +88,14 @@ function SpotDetails () {
               <h1>
                 <span>
                   <img className='star-icon-big' src="https://res.cloudinary.com/dikyl7t9p/image/upload/v1706180574/images_pgo0nc.png" />
-                  <span> {spot.avgStarRating} {spot.numReviews === 1 ?  `· 1 Review` : spot.numReviews > 1 ?  `· ${spot.numReviews} Reviews` : 'New'}</span>
+                  <span> {spot.avgStarRating.toFixed(1)} {spot.numReviews === 1 ?  `· 1 Review` : spot.numReviews > 1 ?  `· ${spot.numReviews} Reviews` : 'New'}</span>
                 </span>
                 <div>
-                  {spot.Owner.id !== userId && userId ? <button className="post-review-button" onClick={handleReviewModalOpen}>Post Your Review</button> : <span/>}
+                  {spot.Owner.id !== userId && userId && !userReviewed? 
+                    <button 
+                      className="post-review-button" 
+                      onClick={handleReviewModalOpen}
+                    >Post Your Review</button> : <span/>}
                 </div>
               </h1>
 
