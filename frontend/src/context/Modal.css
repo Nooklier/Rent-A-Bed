@@ -21,12 +21,13 @@
   #modal-content {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
     position: absolute;
     background-color: rgb(234, 240, 244);
     border: 2px solid black;
     border-radius: 20px;
-    height: 350px;
+    height: 500px;
     width: 400px;
    padding: 10px
   }
