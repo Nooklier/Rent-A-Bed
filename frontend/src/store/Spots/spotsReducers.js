@@ -1,4 +1,4 @@
-import { ADD_IMAGE, ADD_REVIEW, CREATE_SPOT, DELETE_SPOT, GET_SPOT, GET_SPOTS, UPDATE_SPOT } from "./spotsTypes";
+import { ADD_IMAGE, ADD_REVIEW, CREATE_SPOT, DELETE_SPOT, GET_SPOT, GET_SPOTS, GET_USER_SPOTS, UPDATE_SPOT } from "./spotsTypes";
 
 const initialState = {}
 
@@ -38,6 +38,20 @@ const spotsReducer = (state = initialState, action) => {
             if (spot) {
                 spot.reviews = Array.isArray(spot.reviews) ? [...spot.reviews, action.payload.Reviews] : [action.payload.Reviews];
             }
+            return newState;
+        }
+
+        case GET_USER_SPOTS: {
+            const spotsArray = action.payload.Spots;
+            const newSpots = {};
+            if (Array.isArray(spotsArray)) {
+              spotsArray.forEach((spot) => {
+                newSpots[spot.id] = spot;
+              });
+            } else {
+              console.error('Spots is not an array:', spotsArray);
+            }
+            newState = { ...newState, ...newSpots };
             return newState;
         }
 

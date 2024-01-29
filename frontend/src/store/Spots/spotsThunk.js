@@ -1,5 +1,5 @@
 import { csrfFetch } from "../csrf"
-import { getSpots, updateSpot, getSpot, deleteSpot, addImages, createSpot, addReview } from "./spotsActions"
+import { getSpots, updateSpot, getSpot, deleteSpot, addImages, createSpot, addReview, getUserSpots } from "./spotsActions"
 
 export const fetchSpots = () => async (dispatch) => {
     try {
@@ -139,4 +139,24 @@ export const addSpotReview = (spotId, reviewData) => async (dispatch) => {
     return ['An error occured. Please try again']
   }
 };
+
+export const fetchCurrentUserSpots = () => async (dispatch) => {
+  try {
+    const response = await csrfFetch(`/api/spots/current`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (response.ok) {
+      const spots = await response.json();
+      dispatch(getUserSpots(spots));
+      return spots;
+    }
+  } catch (error) {
+    console.error('An error occurred while fetching spots:', error);
+  }
+};
+
 

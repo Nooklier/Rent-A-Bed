@@ -6,6 +6,7 @@ import * as sessionActions from './store/session';
 import SpotPanels from './components/HomepagePanels/spotPanels';
 import SpotDetails from './components/SpotDetails/SpotDetails';
 import CreateSpot from './components/CreateSpot/CreateSpot';
+import ManageSpots from './components/ManageSpots/ManageSpots';
 
 
 function Layout() {
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
         path: 'spots/new',
         element: <CreateSpot />
       },
+      {
+        path: 'spots/current',
+        element: <ManageSpots />
+      }
     ]
   }
 ]);
