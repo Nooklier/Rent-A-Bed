@@ -8,9 +8,7 @@ function UpdateSpot () {
     const navigate = useNavigate()
 
     const {spotId} = useParams()
-    console.log('current spot ID', spotId)
     const spot = useSelector(state => state.spots[spotId])
-    console.log('current spot details', spot)
 
 
     const [country, setCountry] = useState(spot?.country || '');

@@ -11,7 +11,6 @@ function ManageSpots () {
     const userId = useSelector(state => state.session.user?.id)
     const spots = Object.values(useSelector((state) => state.spots));
     const filterSpots = spots.filter(spot => spot.ownerId === userId)
-    console.log(filterSpots)
     const [deleteModalOpen, setDeleteModalOpen] = useState(false)
     const [spotToDelete, setSpotToDelete] = useState(null);
     const [spotCount, setSpotCount] = useState(0)

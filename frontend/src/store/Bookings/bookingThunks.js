@@ -1,7 +1,6 @@
 import { csrfFetch } from "../csrf"
 
 export const fetchBookings = (spotId) => async (dispatch) => {
-    // console.log(spotId)
     try {
         const response = await csrfFetch(`/api/spots/${spotId}/bookings`)
         

@@ -144,34 +144,11 @@ export const fetchCurrentUserSpots = () => async (dispatch) => {
   try {
     const response = await csrfFetch('/api/spots/current');
     const spots = await response.json();
-    // Log the payload right before dispatching the action
-    console.log('Dispatching GET_USER_SPOTS with payload:', spots);
     dispatch(getUserSpots(spots));
   } catch (error) {
-    // Handle any errors appropriately
     console.error('Error fetching current user spots:', error);
   }
 };
-
-
-// export const fetchCurrentUserSpots = () => async (dispatch) => {
-//   try {
-//     const response = await csrfFetch(`/api/spots/current`, {
-//       method: 'GET',
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//     });
-
-//     if (response.ok) {
-//       const spots = await response.json();
-//       dispatch(getUserSpots(spots));
-//       return spots;
-//     }
-//   } catch (error) {
-//     console.error('An error occurred while fetching spots:', error);
-//   }
-// };
 
 export const removeReview = (spotId, reviewId) => async dispatch => {
   const response = await csrfFetch(`/api/reviews/${reviewId}`, {
