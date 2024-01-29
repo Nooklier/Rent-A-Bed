@@ -173,7 +173,6 @@ function CreateSpot () {
                     placeholder="Name of your spot"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    
                 />
                 <hr />
                 <h3>Set a base price for your spot</h3>

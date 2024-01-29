@@ -191,7 +191,7 @@ router.get('/current', requireAuth, async (req, res) => {
     
     for (const spot of spots) {
 
-        const image = await Image.findOne({where: {imageableType: 'Spot', preview: true}})
+        const image = await Image.findOne({where: {imageableType: 'Spot', preview: true, imageableId: spot.id}})
 
         if (image) {
             spot.dataValues.previewImage = image.url;

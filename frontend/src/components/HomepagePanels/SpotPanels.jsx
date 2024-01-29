@@ -19,35 +19,32 @@ function SpotPanels () {
     }
     
     return (
-      <div className='image-panels-container'>
-
-          {spots.map(spot => (
-            <div className='image-container' key={spot.id}>
-            <div className='image-panels'>
-
-            <nav>
-              <NavLink to={`/spots/${spot.id}`}>
-                <img className='image' src={spot.previewImage} alt={spot.name} title={spot.name}/>
-              </NavLink>
-            </nav>
-
-            <h4>
-              {spot.city}, {spot.state}
-              <span>
-                <img className='star' src='https://res.cloudinary.com/dikyl7t9p/image/upload/v1706180574/images_pgo0nc.png'/>
-                {' '}{spot.avgRating}
-              </span>
-            </h4>
-            <h5>
-            ${spot.price} night
-            </h5>
+      <div className='spot-panels-container'>
+        {spots.map(spot => (
+          <div className='spot-panels-contents' key={spot.id}>
+            <div className='spot-image'>
+              <nav>
+                <NavLink to={`/spots/${spot.id}`}>
+                  <img className='image' src={spot.previewImage} alt={spot.name} title={spot.name}/>
+                </NavLink>
+              </nav>
+              <div className='spot-panels-below-img-first-line'>
+                {spot.city}, {spot.state}
+                { spot.avgRating === 0 ? (<span>New</span>) : ( <span className="star"> ★ {' ' + spot.avgRating + ' '}</span>)}
+              </div>
+              <div className='spot-panels-price'>
+                ${spot.price} night
+              </div>
+            </div>
           </div>
-          </div>
-          ))}
-
+        ))}
       </div>
     );
+}
+
+export default SpotPanels;
+
+
+
     
-  }
   
-  export default SpotPanels;

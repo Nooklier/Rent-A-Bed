@@ -4,10 +4,16 @@
     justify-content: center;
 }
 
-.manage-spot-header {
+.manage-spot-contents {
     display: flex;
     flex-direction: column;
     padding: 50px;
+}
+
+.manage-spot-header {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
 }
 
 .manage-spot-header h2 {
@@ -32,4 +38,37 @@
     border-radius: 3px;
     width: 100px;
     cursor: pointer;
+}
+
+.manage-spot-image-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.manage-spot-image-contents {
+    display: flex;
+}
+
+.manage-spot-image-panels {
+    display: flex;
+    flex-direction: column;
+    max-width: 90%;
+    width: 400px;
+    padding: 10px;
+    border: 2px solid black;
+    border-radius: 10px;
+    box-shadow: 3px 3px 3px gray;
+}
+
+.manage-spot-image-panels h4 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0px;
+}
+
+.manage-spot-image-panels h5 {
+    margin-top: 5px;
+    margin-bottom: 10px;
 }

@@ -23,9 +23,7 @@ const spotsReducer = (state = initialState, action) => {
 
         case DELETE_SPOT: {
             const spotId = action.payload; 
-            if (newState.spots && newState.spots[spotId]) {
-              delete newState.spots[spotId];
-            }
+              delete newState[spotId];
             return newState;
         }
     
@@ -44,6 +42,26 @@ const spotsReducer = (state = initialState, action) => {
             }
             return newState;
         }
+
+        // case GET_USER_SPOTS:
+        //     // Log the state before update
+        //     console.log('State before update:', state);
+        //     // Log the action payload
+        //     console.log('Action payload:', action.payload);
+          
+        //     // Update the state by creating a new object
+        //     // Ensure that the spots array is replaced entirely by the payload
+        //     const updatedState = {
+        //       ...state,
+        //       spots: action.payload // Payload should be an array of spots
+        //     };
+          
+        //     // Log the state after update
+        //     console.log('State after update:', updatedState);
+          
+        //     return updatedState;
+          
+
 
         case GET_USER_SPOTS: {
             const spotsArray = action.payload.Spots;

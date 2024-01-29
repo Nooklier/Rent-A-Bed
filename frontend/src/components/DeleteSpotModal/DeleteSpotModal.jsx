@@ -2,13 +2,16 @@ import { useDispatch } from "react-redux";
 import './DeleteSpotModal.css'
 import { removeSpot } from "../../store/Spots/spotsThunk";
 
-function DeleteSpotModal ({spotId, onClose}) {
+
+function DeleteSpotModal ({spotId, onClose, setSpotCount}) {
     const dispatch = useDispatch();
     
     const handleDelete = async () => {
         await dispatch(removeSpot(spotId));
+        setSpotCount((prevCount => prevCount - 1))
         onClose();
     };
+
     return (
         <div className="create-review-modal-container">
             <div className="create-review-content-container">

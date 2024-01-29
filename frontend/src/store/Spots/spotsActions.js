@@ -15,9 +15,9 @@ export const updateSpot = (spot) => ({
     payload: spot
 })
 
-export const deleteSpot = (spotId) => ({
+export const deleteSpot = (spotId, spot) => ({
     type: DELETE_SPOT,
-    payload: {spotId}
+    payload: spotId, spot
 })
 
 export const createSpot = (spot) => ({

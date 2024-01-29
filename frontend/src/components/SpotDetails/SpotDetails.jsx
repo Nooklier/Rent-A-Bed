@@ -32,8 +32,8 @@ function SpotDetails () {
   const handleReviewModalOpen = () => setReviewModalOpen(true);
   const handleReviewModalClose = () => setReviewModalOpen(false);
 
-  const handleDeleteReview = (reviewId) => {
-    dispatch(removeReview(spotId, reviewId)); 
+  const handleDeleteReview = async (reviewId) => {
+    await dispatch(removeReview(spotId, reviewId)); 
     setReviewCount(prevCount => prevCount - 1); 
   };
 
@@ -153,8 +153,6 @@ function SpotDetails () {
               onDelete={deleteReviewAndCloseModal}
               reviewId={currentReviewId}
             />
-
-            
         </div>
       )}
     </div>

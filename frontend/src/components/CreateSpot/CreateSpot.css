@@ -21,6 +21,7 @@
     justify-content: center;
     height: 50px;
     border-radius: 5px;
+    cursor: pointer;
 }
 
 .create-spot-form-container h2 {

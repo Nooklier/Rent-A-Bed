@@ -13,24 +13,35 @@ function SignupFormModal() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [formSubmitted, setFormSubmitted] = useState(false)
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
 
-  const isFormValid = () => {
-    return (
-      email.length > 0 &&
-      username.length >= 4 &&
-      firstName.length > 0 &&
-      lastName.length > 0 &&
-      password.length >= 6 && 
-      confirmPassword.length >= 6 &&
-      password === confirmPassword
-    );
-  };
+  // const isFormValid = () => {
+  //   return (
+  //     email.length > 0 &&
+  //     username.length >= 4 &&
+  //     firstName.length > 0 &&
+  //     lastName.length > 0 &&
+  //     password.length >= 6 && 
+  //     confirmPassword.length >= 6 &&
+  //     password === confirmPassword
+  //   );
+  // };
+
+  const isValid = () => {
+    if (!email) return false;
+    if (!username) return false;
+    if (!firstName) return false;
+    if (!lastName) return false;
+    if (!password) return false;
+    if (!confirmPassword) return false;
+    else return true
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setFormSubmitted(true)
+    setErrors([])
 
     if (!email) return;
     if (!username) return;
@@ -50,11 +61,12 @@ function SignupFormModal() {
           password
         })
       )
-        .then(closeModal())
+        // .then(closeModal())
         .catch(async (res) => {
           const data = await res.json();
-          if (data && data.message) {
-            setErrors(data.message);
+          if (data && data.errors) {
+            const errorMessages = Object.values(data.errors);
+            setErrors(errorMessages);
           }
         });
     }
@@ -70,6 +82,12 @@ function SignupFormModal() {
     <div className='sign-up-modal' onClick={handleBackgroundClick}>
       <div className='sign-up-modal-background'>
         <h1 className='sign-up-title'>Sign Up</h1>
+          {errors.length > 0 && 
+            <div>{errors.map((error, idx) => (
+              <div key={idx}>{error}</div>
+              ))}
+              <button onClick={() => setErrors([])}>Try Again</button>
+            </div>}
         <form onSubmit={handleSubmit} className='sign-up-form-container'>
           
           <input
@@ -125,7 +143,8 @@ function SignupFormModal() {
           />
          
           {formSubmitted && (confirmPassword !== password) && (<p>Password must match</p>)}
-          <button type="submit" disabled={!isFormValid()}>Sign Up</button>
+      
+          <button type="submit" disabled={(!isValid()) ? true : errors.length ? true : false}>Sign Up</button>
         </form>
       </div>
     </div>
