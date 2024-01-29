@@ -1,4 +1,4 @@
-import { ADD_IMAGE, ADD_REVIEW, CREATE_SPOT, DELETE_SPOT, GET_SPOT, GET_SPOTS, GET_USER_SPOTS, UPDATE_SPOT } from "./spotsTypes";
+import { ADD_IMAGE, ADD_REVIEW, CREATE_SPOT, DELETE_REVIEW, DELETE_SPOT, GET_SPOT, GET_SPOTS, GET_USER_SPOTS, UPDATE_SPOT } from "./spotsTypes";
 
 const initialState = {}
 
@@ -21,9 +21,13 @@ const spotsReducer = (state = initialState, action) => {
             newState[action.payload.id] = action.payload
             return newState
 
-        case DELETE_SPOT: 
-            delete newState.spots[action.payload]
-            return newState
+        case DELETE_SPOT: {
+            const spotId = action.payload; 
+            if (newState.spots && newState.spots[spotId]) {
+              delete newState.spots[spotId];
+            }
+            return newState;
+        }
     
         case CREATE_SPOT:
             newState[action.payload.id] = action.payload
@@ -54,6 +58,15 @@ const spotsReducer = (state = initialState, action) => {
             newState = { ...newState, ...newSpots };
             return newState;
         }
+
+        case DELETE_REVIEW: {
+            const { spotId, reviewId } = action.payload;
+            if (newState[spotId]) {
+                newState[spotId].reviews = newState[spotId].reviews.filter(review => review.id !== reviewId);
+            }
+            return newState;
+        }
+        
 
         default: 
             return state

@@ -1,5 +1,5 @@
 import { csrfFetch } from "../csrf"
-import { getSpots, updateSpot, getSpot, deleteSpot, addImages, createSpot, addReview, getUserSpots } from "./spotsActions"
+import { getSpots, updateSpot, getSpot, deleteSpot, addImages, createSpot, addReview, getUserSpots, deleteReview } from "./spotsActions"
 
 export const fetchSpots = () => async (dispatch) => {
     try {
@@ -159,4 +159,14 @@ export const fetchCurrentUserSpots = () => async (dispatch) => {
   }
 };
 
+export const removeReview = (spotId, reviewId) => async dispatch => {
+  const response = await csrfFetch(`/api/reviews/${reviewId}`, {
+      method: 'DELETE'
+  });
+
+  if (response.ok) {
+      dispatch(deleteReview(reviewId, spotId));
+      return reviewId;
+  }
+};
 

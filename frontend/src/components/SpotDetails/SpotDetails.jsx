@@ -1,19 +1,24 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux'
-import { addSpotReview, fetchSpot } from "../../store/Spots/spotsThunk";
+import { addSpotReview, fetchSpot, removeReview } from "../../store/Spots/spotsThunk";
 import { fetchReviews } from "../../store/Reviews/ReviewThunks";
 import CreateReviewModal from "../CreateReviewModal/CreateReviewModal";
+import DeleteReviewModal from "../DeleteReviewModal/DeleteReviewModal";
 import './SpotDetails.css'
 
 function SpotDetails () {
   const dispatch = useDispatch()
   const {spotId} = useParams()
+  const navigate = useNavigate()
   const spot = useSelector(state => state.spots[spotId])
   const userId = useSelector(state => state.session.user?.id)
   const reviews = useSelector(state => state.reviews[spotId])
   const [reviewModalOpen, setReviewModalOpen] = useState(false)
   const [reviewCount, setReviewCount] = useState(0);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [currentReviewId, setCurrentReviewId] = useState(null);
+
   
 
   useEffect(() => {
@@ -26,6 +31,29 @@ function SpotDetails () {
   
   const handleReviewModalOpen = () => setReviewModalOpen(true);
   const handleReviewModalClose = () => setReviewModalOpen(false);
+
+  const handleDeleteReview = (reviewId) => {
+    dispatch(removeReview(spotId, reviewId)); 
+    setReviewCount(prevCount => prevCount - 1); 
+  };
+
+  const openDeleteModal = (reviewId) => {
+    setIsDeleteModalOpen(true);
+    setCurrentReviewId(reviewId);
+  };
+  
+  const closeDeleteModal = () => {
+    setIsDeleteModalOpen(false);
+    setCurrentReviewId(null);
+  };
+  
+  const deleteReviewAndCloseModal = async (reviewId) => {
+    await handleDeleteReview(reviewId);
+    closeDeleteModal();
+    navigate(`/spots/${spotId}`);
+  };
+  
+  
   
   const reviewSubmission = async (reviewData) => {
     const response = await dispatch(addSpotReview(spotId, reviewData));
@@ -104,6 +132,9 @@ function SpotDetails () {
                   <h4>{review.User.firstName}</h4>
                   <div className="month-year">{new Date(review.createdAt).toLocaleString('default', { month: 'long', year: 'numeric' })}</div>
                   <div className="review-review">{review.review}</div>
+                  {userId === review.userId && (
+                    <button onClick={() => openDeleteModal(review.id)} className="delete-review-button">Delete Review</button>
+                  )}                
                 </div>
               ))}
               {!reviews && <div>Be the first to post a review!</div>}
@@ -115,6 +146,14 @@ function SpotDetails () {
                 onSubmit={reviewSubmission}
               />
             )}
+
+            <DeleteReviewModal
+              isOpen={isDeleteModalOpen}
+              onClose={closeDeleteModal}
+              onDelete={deleteReviewAndCloseModal}
+              reviewId={currentReviewId}
+            />
+
             
         </div>
       )}

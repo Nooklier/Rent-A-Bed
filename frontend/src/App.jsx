@@ -7,6 +7,7 @@ import SpotPanels from './components/HomepagePanels/spotPanels';
 import SpotDetails from './components/SpotDetails/SpotDetails';
 import CreateSpot from './components/CreateSpot/CreateSpot';
 import ManageSpots from './components/ManageSpots/ManageSpots';
+import UpdateSpot from './components/UpdateSpot/UpdateSpot';
 
 
 function Layout() {
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
       {
         path: 'spots/current',
         element: <ManageSpots />
+      },
+      {
+        path: 'spots/:spotId/edit',
+        element: <UpdateSpot />
       }
     ]
   }

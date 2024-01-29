@@ -1,4 +1,4 @@
-import { GET_SPOTS, GET_SPOT, UPDATE_SPOT, DELETE_SPOT, CREATE_SPOT, ADD_IMAGE, ADD_REVIEW, GET_USER_SPOTS } from "./spotsTypes"
+import { GET_SPOTS, GET_SPOT, UPDATE_SPOT, DELETE_SPOT, CREATE_SPOT, ADD_IMAGE, ADD_REVIEW, GET_USER_SPOTS, DELETE_REVIEW } from "./spotsTypes"
 
 export const getSpots = (spots) => ({
     type: GET_SPOTS,
@@ -38,5 +38,10 @@ export const addReview = (review) => ({
 export const getUserSpots = (spots) => ({
     type: GET_USER_SPOTS,
     payload: spots
+})
+
+export const deleteReview = (spotId, reviewId) => ({
+    type: DELETE_REVIEW,
+    payload: spotId, reviewId
 })
 

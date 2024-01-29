@@ -1,13 +1,16 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {fetchCurrentUserSpots} from '../../store/Spots/spotsThunk'
 import { NavLink, useNavigate } from 'react-router-dom';
 import './ManageSpots.css'
+import DeleteSpotModal from "../DeleteSpotModal/DeleteSpotModal";
 
 function ManageSpots () {
     const dispatch = useDispatch();
     const navigate = useNavigate()
     const spots = Object.values(useSelector((state) => state.spots));
+    const [deleteModalOpen, setDeleteModalOpen] = useState(false)
+    const [spotToDelete, setSpotToDelete] = useState(null);
 
     useEffect(() => {
         dispatch(fetchCurrentUserSpots());
@@ -16,6 +19,20 @@ function ManageSpots () {
     const handleCreateNewSpotClick = () => {
         navigate('/spots/new')
     }
+
+    const handleUpdateSpotClick = (spotId) => {
+        navigate(`/spots/${spotId}/edit`)
+    }
+
+    const handleDeleteClick = (spotId) => {
+        setSpotToDelete(spotId); 
+        setDeleteModalOpen(true); 
+    };
+
+    const handleDeleteModalClose = () => {
+        setDeleteModalOpen(false);
+        setSpotToDelete(null); 
+    };
 
     return (
         <div className="manage-spot-container">
@@ -41,13 +58,19 @@ function ManageSpots () {
                           </h4>
                           <h5>${spot.price} night</h5>
                           <div className="manage-spot-buttons">
-                            <button>Update</button>
-                            <button>Delete</button>
+                            <button onClick={() => handleUpdateSpotClick(spot?.id)}>Update</button>
+                            <button onClick={() => handleDeleteClick(spot?.id)}>Delete</button>
                           </div>
                       </div>
                   </div>
                 ))}
             </div>
+            {deleteModalOpen && (
+                <DeleteSpotModal 
+                    spotId={spotToDelete} 
+                    onClose={handleDeleteModalClose}
+                />
+            )}               
         </div>
     )
 }
