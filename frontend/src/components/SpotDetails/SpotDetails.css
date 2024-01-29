@@ -86,6 +86,7 @@
     background-color: rgb(254, 253, 175);
     border-radius: 5px;
     box-shadow: 1px 1px 1px gray;
+    cursor: pointer;
 }
 .star-icon {
     width: 10px;
@@ -122,6 +123,7 @@
     background-color: rgb(254, 253, 175);
     box-shadow: 1px 1px 1px gray;
     width: 140px;
+    cursor: pointer;
 }
 
 .review-container {

@@ -1,5 +1,5 @@
 import { csrfFetch } from "../csrf"
-import { getSpots, updateSpot, getSpot, deleteSpot, addImages, createSpot } from "./spotsActions"
+import { getSpots, updateSpot, getSpot, deleteSpot, addImages, createSpot, addReview } from "./spotsActions"
 
 export const fetchSpots = () => async (dispatch) => {
     try {
@@ -114,3 +114,30 @@ export const addSpotImage = (imageData) => async (dispatch) => {
       return error
     }
 }
+
+export const addSpotReview = (spotId, reviewData) => async (dispatch) => {
+  try {
+    const response = await csrfFetch(`/api/spots/${spotId}/reviews`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(reviewData),
+    });
+
+    if (response.ok) {
+      const review = await response.json();
+      dispatch(addReview(review));
+      return review
+    } else {
+      const review = await response.json()
+      if (review.message) {
+        return review.message
+      } else {
+        throw new Error ('Unexpected response format')
+      }
+    }
+  } catch (error) {
+    console.log(error)
+    return ['An error occured. Please try again']
+  }
+};
+

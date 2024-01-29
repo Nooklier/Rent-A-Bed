@@ -1,43 +1,49 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchSpot } from "../../store/Spots/spotsThunk";
-import './SpotDetails.css'
+import { addSpotReview, fetchSpot } from "../../store/Spots/spotsThunk";
 import { fetchReviews } from "../../store/Reviews/ReviewThunks";
+import CreateReviewModal from "../CreateReviewModal/CreateReviewModal";
+import './SpotDetails.css'
 
 function SpotDetails () {
   const dispatch = useDispatch()
-
-  // FIND SPOTID
   const {spotId} = useParams()
-
-  // FETCH SPOT DETAILS
   const spot = useSelector(state => state.spots[spotId])
   const userId = useSelector(state => state.session.user?.id)
   const reviews = useSelector(state => state.reviews[spotId])
-  // const spotReviews = reviewsState[spotId]
-  // const reviews = Object.values(spotReviews)
+  const [reviewModalOpen, setReviewModalOpen] = useState(false)
+  const [reviewCount, setReviewCount] = useState(0);
 
-  const reserveAlert = () => {
-    alert('Feature Coming Soon...')
-  }
+  useEffect(() => {
+    if (spotId) {
+      dispatch(fetchSpot(spotId))
+      dispatch(fetchReviews(spotId))
+    } 
+  },[dispatch, spotId, reviewCount])
+
   
-  useEffect(() => {
-    dispatch(fetchSpot(spotId))
-  },[dispatch, spotId])
+  const handleReviewModalOpen = () => setReviewModalOpen(true);
+  const handleReviewModalClose = () => setReviewModalOpen(false);
+  
+  const reviewSubmission = async (reviewData) => {
+    const response = await dispatch(addSpotReview(spotId, reviewData));
+    
+    if (response && !response.message) {
+      setReviewCount(prevCount => prevCount + 1); 
+      dispatch(fetchReviews(spotId));
+      // handleReviewModalClose();
+    }
 
-  useEffect(() => {
-    dispatch(fetchReviews(spotId))
-  }, [dispatch, spotId])
+    console.log('response is', response)
+  };
+
+  const reserveAlert = () => alert('Feature Coming Soon...');
   
   if (!spot || !spot.Owner || !spot.SpotImages) {
     return <div>...Loading</div>
   } 
-  
-  // console.log('return only 1 spot', spot)
-  // console.log('session user', userId)
-  // console.log('all reviews', reviews)
-  
+
   return (
     <div className="outside-container">
         {spot && (
@@ -85,7 +91,7 @@ function SpotDetails () {
                   <span> {spot.avgStarRating} {spot.numReviews === 1 ?  `· 1 Review` : spot.numReviews > 1 ?  `· ${spot.numReviews} Reviews` : 'New'}</span>
                 </span>
                 <div>
-                  {spot.Owner.id !== userId && userId ? <button className="post-review-button">Post Your Review</button> : <span/>}
+                  {spot.Owner.id !== userId && userId ? <button className="post-review-button" onClick={handleReviewModalOpen}>Post Your Review</button> : <span/>}
                 </div>
               </h1>
 
@@ -99,7 +105,13 @@ function SpotDetails () {
               {!reviews && <div>Be the first to post a review!</div>}
             </div>
 
-
+            {reviewModalOpen && (
+              <CreateReviewModal 
+                onClose={handleReviewModalClose} 
+                onSubmit={reviewSubmission}
+              />
+            )}
+            
         </div>
       )}
     </div>

@@ -7,7 +7,7 @@ const reviewsReducer = (state = initialState, action) => {
 
     switch (action.type) {
 
-        case GET_REVIEWS:
+        case GET_REVIEWS: {
             let arr = []
             action.payload.Reviews.map(review => {
                 arr.push(review)
@@ -16,6 +16,7 @@ const reviewsReducer = (state = initialState, action) => {
                 newState[arr[0].spotId] = arr              
             }
             return newState
+        }
         
         default:
             return state

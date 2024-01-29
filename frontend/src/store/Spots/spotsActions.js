@@ -1,4 +1,4 @@
-import { GET_SPOTS, GET_SPOT, UPDATE_SPOT, DELETE_SPOT, CREATE_SPOT, ADD_IMAGE } from "./spotsTypes"
+import { GET_SPOTS, GET_SPOT, UPDATE_SPOT, DELETE_SPOT, CREATE_SPOT, ADD_IMAGE, ADD_REVIEW } from "./spotsTypes"
 
 export const getSpots = (spots) => ({
     type: GET_SPOTS,
@@ -28,4 +28,9 @@ export const createSpot = (spot) => ({
 export const addImages = (imageData) => ({
     type: ADD_IMAGE,
     payload: imageData
+})
+
+export const addReview = (review) => ({
+    type: ADD_REVIEW,
+    payload: review
 })

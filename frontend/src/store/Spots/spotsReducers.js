@@ -1,4 +1,4 @@
-import { ADD_IMAGE, CREATE_SPOT, DELETE_SPOT, GET_SPOT, GET_SPOTS, UPDATE_SPOT } from "./spotsTypes";
+import { ADD_IMAGE, ADD_REVIEW, CREATE_SPOT, DELETE_SPOT, GET_SPOT, GET_SPOTS, UPDATE_SPOT } from "./spotsTypes";
 
 const initialState = {}
 
@@ -30,10 +30,16 @@ const spotsReducer = (state = initialState, action) => {
             return newState
 
         case ADD_IMAGE:
-
-           newState[action.payload] = action.payload
+            newState[action.payload] = action.payload
             return newState
 
+        case ADD_REVIEW: {
+            const spot = newState[action.payload.spotId]
+            if (spot) {
+                spot.reviews = Array.isArray(spot.reviews) ? [...spot.reviews, action.payload.Reviews] : [action.payload.Reviews];
+            }
+            return newState;
+        }
 
         default: 
             return state
