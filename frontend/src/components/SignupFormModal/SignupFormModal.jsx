@@ -50,7 +50,7 @@ function SignupFormModal() {
           password
         })
       )
-        .then(closeModal)
+        .then(closeModal())
         .catch(async (res) => {
           const data = await res.json();
           if (data && data.message) {
@@ -60,8 +60,14 @@ function SignupFormModal() {
     }
   };
 
+  const handleBackgroundClick = (e) => {
+    if (e.target.className.includes('sign-up-modal')) {
+      closeModal();
+    }
+  };
+
   return (
-    <div className='sign-up-modal'>
+    <div className='sign-up-modal' onClick={handleBackgroundClick}>
       <div className='sign-up-modal-background'>
         <h1 className='sign-up-title'>Sign Up</h1>
         <form onSubmit={handleSubmit} className='sign-up-form-container'>
@@ -119,7 +125,7 @@ function SignupFormModal() {
           />
          
           {formSubmitted && (confirmPassword !== password) && (<p>Password must match</p>)}
-          <button type="submit" disabled={!isFormValid}>Sign Up</button>
+          <button type="submit" disabled={!isFormValid()}>Sign Up</button>
         </form>
       </div>
     </div>
